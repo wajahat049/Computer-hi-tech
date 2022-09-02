@@ -1,0 +1,313 @@
+.App {
+  text-align: center;
+  
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+body {
+  overflow-x: hidden !important;
+
+}
+
+body .heading, h1, h2{
+  font-family: auto !important;
+  
+}
+
+.height {
+    height: 20vh
+}
+
+.search {
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+}
+
+.search input {
+    height: 60px;
+    text-indent: 25px;
+    border: 2px solid #d6d4d4
+}
+
+.search input:focus {
+    box-shadow: none;
+    border: 2px solid black
+}
+
+.search .fa-search {
+    position: absolute;
+    top: 20px;
+    left: 16px
+}
+
+.search button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 50px;
+    width: 110px;
+    background: black
+}
+
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 500px) {
+  .heading {
+    font-size: 40px;
+  }
+  .sort-bar{
+    width: 100%;
+  }
+ 
+}
+
+/* .heading{
+    font-size: 50px;
+} */
+
+@media screen and (min-width: 501px) {
+
+ 
+
+  .heading {
+    font-size: 60px;
+
+  }
+  .sort-bar{
+    width: 30%;
+    float: right;
+  }
+ 
+}
+
+/* .sort-bar{
+  width: 20%;
+} */
+
+.dropdown-menu{
+  min-width: 100 rem !important
+}
+
+
+.react-bootstrap-drawer{
+  z-index: 0 !important;
+  background-color: white !important;
+  border-right:black;
+  border-width: 2px;
+}
+
+
+.react-bootstrap-drawer-toggle{
+  align-self: flex-end;
+}
+
+.card{
+  width: 13rem;
+  height:21rem;
+  border:1px solid black;
+  box-shadow:1px 8px 10px grey;
+  display:flex;
+  flex-direction:column
+}
+
+.insideCard{
+  height:50%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center
+}
+
+.card-img-top{
+  max-height:88%;
+  align-self:center
+}
+
+.card-title{
+  font-size:large !important;
+  color:black;
+  text-align: start;
+}
+
+
+@media screen and (max-width: 500px) {
+
+
+  .search input{
+    height: 50px !important;
+  }
+   .search button{
+     height: 40px;
+     width: 80px;
+   }
+  .card{
+    width: 9rem;
+    height:16rem;
+    border:1px solid black;
+    box-shadow:1px 8px 10px grey;
+    display:flex;
+    flex-direction:column;
+    font-size: x-small !important;
+  }
+  
+  .insideCard{
+    height:40%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center
+  }
+  
+  .card-img-top{
+    max-height:80%;
+    align-self:center
+  }
+  
+  .card-title{
+    font-size:medium !important;
+    color:black;
+    text-align: start;
+  }
+
+  .card-text h5{
+    font-size: medium !important;
+  }
+
+  .card-header{
+    font-size: medium !important;
+    padding: 0.4rem !important;
+  }
+
+  .card-body{
+    padding: 0.7rem !important;
+  }
+
+  .card-body button{
+    font-size: x-small !important;
+    width: fit-content !important;
+    align-self: center !important;
+  }
+
+  .react-multi-carousel-item{
+    margin-right: 5% !important;
+  }
+
+  .Contact-Form{
+    margin-left: 8%;
+    width: 80% !important;
+
+  }
+ 
+.Contact-Socialmedia{
+  width: 100% !important;
+}
+
+.About-cards .card{
+  width: 11.5em !important;
+}
+
+}
+.react-multi-carousel-list{
+  overflow:visible !important;
+}
+
+.Featured .row{
+  width: 95% !important;
+}
+
+.Latest .row{
+  width: 95% !important;
+}
+
+.react-multi-carousel-track{
+  margin-bottom: 5% !important;
+
+}
+
+.react-multi-carousel-list{
+  /* width: 100% !important; */
+  overflow-x: hidden !important;
+}
+
+.pagination{
+  justify-content: center !important;
+}
+
+.react-bootstrap-drawer-toc-header{
+  padding:0% !important;
+}
+
+.Contact-Form{
+  border:2px solid gray;
+  padding:2%;
+  height: fit-content !important;
+
+}
+
+.Contact-Content{
+  margin-left: 2%;
+
+}
+
+.Contact-Socialmedia{
+  margin-top:10% !important;
+  width: 60%;
+  margin-bottom: 10% !important;
+  
+}
+
+.About-cards .card{
+  height: 95% !important;
+  margin:5%;
+  width: 12.5em;
+}
+
+.About-cards .row{
+  width: 99% !important;
+  text-align: -webkit-center !important;
+  margin-top: 3%;
+  
+}
+
+.About-cards .row .col{
+  margin-bottom: 4%;
+  
+}
+
+.Footer-icons .col{
+  padding: 1% !important;
+}
