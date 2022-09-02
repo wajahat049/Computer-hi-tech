@@ -33,7 +33,7 @@ function NavBar() {
           >
             <img
               src={Logo}
-              style={{height:"2em",width:"7em"}}
+              style={{height:"2.5em",width:"7em"}}
               className="d-inline-block top-align"
               // alt="React Bootstrap logo"
             />
@@ -41,16 +41,15 @@ function NavBar() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/memories">Memory</Nav.Link>
-              <Nav.Link href="/details">Hardrive</Nav.Link>
-              <Nav.Link href="/details">SSDs</Nav.Link>
-              <Nav.Link href="/details">Graphic Cards</Nav.Link>
-              <Nav.Link href="/details">CPU</Nav.Link>
-              <Nav.Link href="/details">MotherBoards</Nav.Link>
-              <Nav.Link href="/details">Networking</Nav.Link>
-              {/* <Nav.Link href="/details">Power Supplies</Nav.Link> */}
-              <Nav.Link href="/contact">Contact us</Nav.Link>
-              <Nav.Link href="/about">About us</Nav.Link>
+              <Nav.Link className="navLinks" href="/memories">Memory</Nav.Link>
+              <Nav.Link className="navLinks" href="/details">Hardrive</Nav.Link>
+              <Nav.Link className="navLinks" href="/details">SSDs</Nav.Link>
+              <Nav.Link className="navLinks" href="/details">Graphic Cards</Nav.Link>
+              <Nav.Link className="navLinks" href="/details">CPU</Nav.Link>
+              <Nav.Link className="navLinks" href="/details">MotherBoards</Nav.Link>
+              <Nav.Link className="navLinks" href="/details">Networking</Nav.Link>
+              <Nav.Link className="navLinks" href="/contact">Contact us</Nav.Link>
+              <Nav.Link className="navLinks" href="/about">About us</Nav.Link>
 
 
             </Nav>

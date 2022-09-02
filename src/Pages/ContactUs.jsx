@@ -67,7 +67,7 @@ function Contact(props) {
 
   return (
     <div className="Contact-us">
-      <img height={window.innerHeight-170} width="100%" src={contactcover}/>
+      {/* <img height={window.innerHeight-170} width="100%" src={contactcover}/> */}
       <Row style={{marginTop:"5%",width:"97%",justifyContent:"space-between"}}>
         <Col className='Contact-Content' md={7} sm={12} >
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima possimus quae nihil voluptate voluptatibus hic impedit neque facere saepe ducimus distinctio harum, autem, quisquam atque reprehenderit omnis id voluptatem ab?

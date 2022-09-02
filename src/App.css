@@ -311,3 +311,17 @@ body .heading, h1, h2{
 .Footer-icons .col{
   padding: 1% !important;
 }
+
+.navLinks{
+  margin-left: 15px;
+}
+
+.navLinks:hover{
+  color: grey;
+  font-size: 18px;
+  text-shadow: #d6d4d4;
+}
+
+.Carousel_Cap{
+  background-color: #37373836;
+}

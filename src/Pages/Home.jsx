@@ -113,20 +113,17 @@ function Home(props) {
               </Row>
             </Row>
           </div>
-    <div  style={{width:"100%",height:"40px",textAlign:"center",marginTop:"10%"}}>
+    <div  style={{width:"100%",height:"40px",textAlign:"center",marginTop:"5%"}}>
       <span className="heading"> Latest Products </span>
       
     </div>
     <div className="Latest" ref={refLatest}  style={{textAlign:"-webkit-center"}}  >
-            <Row  style={{width:"90% !important"}}
+            <Row  style={{width:"90% !important", marginTop: "5%"}}
               xs={2}
               s={2}
               md={4}
               l={5}
               className="g-3"
-              style={{
-                marginTop: "5%",
-              }}
             >
               {imgArr.map((e,i) => {
                 return (
