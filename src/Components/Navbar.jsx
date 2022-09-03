@@ -41,15 +41,17 @@ function NavBar() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link className="navLinks" href="/memories">Memory</Nav.Link>
-              <Nav.Link className="navLinks" href="/details">Hardrive</Nav.Link>
-              <Nav.Link className="navLinks" href="/details">SSDs</Nav.Link>
-              <Nav.Link className="navLinks" href="/details">Graphic Cards</Nav.Link>
+              <Nav.Link className="navLinks" href="/category/Memories">Memory</Nav.Link>
+              <Nav.Link className="navLinks" href="/category/HardDrives">Hardrive</Nav.Link>
+              <Nav.Link className="navLinks" href="/category/SSDs">SSDs</Nav.Link>
+              {/* <Nav.Link className="navLinks" href="/details">Graphic Cards</Nav.Link>
               <Nav.Link className="navLinks" href="/details">CPU</Nav.Link>
               <Nav.Link className="navLinks" href="/details">MotherBoards</Nav.Link>
-              <Nav.Link className="navLinks" href="/details">Networking</Nav.Link>
+              <Nav.Link className="navLinks" href="/details">Networking</Nav.Link> */}
+              <Nav.Link className="navLinks" href="/categories">All Categories</Nav.Link>
               <Nav.Link className="navLinks" href="/contact">Contact us</Nav.Link>
               <Nav.Link className="navLinks" href="/about">About us</Nav.Link>
+              
 
 
             </Nav>

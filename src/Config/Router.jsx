@@ -14,11 +14,10 @@ import {
   import Footer from "../Components/Footer"
 
   import SearchBar from "../Components/SearchBar"
-
-  import Memories from "../Pages/Memory/index"
   import Contact from "../Pages/ContactUs"
   import About from "../Pages/AboutUs"
 import Categories from "../Pages/Categories";
+import Category from "../Pages/Category";
 
 
 
@@ -39,11 +38,12 @@ import Categories from "../Pages/Categories";
                 {/* <SearchBar/> */}
                   <Route exact path="/" component={Home}/>
                   <Route exact path="/details" component={Details}/>
-                  <Route exact path="/memories" component={Memories}/>
                   <Route exact path="/cart" component={Cart}/>
                   <Route exact path="/contact" component={Contact}/>
                   <Route exact path="/about" component={About}/>
                   <Route exact path="/categories" component={Categories}/>
+                  <Route exact path="/category/:id" component={Category}/>
+
                 <Footer/>
 
               </Router>
