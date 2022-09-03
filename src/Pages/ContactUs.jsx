@@ -18,7 +18,7 @@ import InView, { useInView } from "react-intersection-observer"
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ProductCarousel from '../Components/ProductCarousel';
-import background from "../Images/contact-bg.jpg";
+import background from "../Images/contact_bg2.png";
 
 import contactcover from "../Images/contactcover.jpg";
 import UseAnimations from "react-useanimations";
