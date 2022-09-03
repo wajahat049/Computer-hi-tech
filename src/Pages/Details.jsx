@@ -39,7 +39,7 @@ function Details(props) {
 <Container fluid style={{marginLeft:"2%",marginTop:"5%"}} >
     <Row style={{justifyContent:"center"}}>
    
-<Col md={3} sm={10} xs={8} style={{border:"2px solid black"}}>
+<Col md={3} sm={10} xs={8} style={{border:"2px solid black",borderRadius:"5px"}}>
 <motion.div animate={{
                     scale: [1, 2, 2, 1, 1],
                     rotate: [0,360, 0],
@@ -75,48 +75,72 @@ function Details(props) {
 </Col>
 </Row>
 <Row style={{marginTop:"5%",width:"100%",display:"flex"}}>
-    <Col sm={10} md={8} style={{marginRight:"4%",border:"1px solid gray",marginBottom:"5%"}}>
-      <Row>
-    <h4 style={{backgroundColor:"#9da19f",padding:"2%"}} >Technical Specifications</h4>
-    </Row>
-  
-        <Row style={{paddingBottom:"1%",paddingTop:"1%",border:"1px solid black"}}>
-            <Col> <b> one </b> </Col>
-            <Col>1</Col>
+    <Col sm={10} md={7} >
+      <Row >
+    <h2>Technical Specifications</h2>
+    </Row >
+      <Container>
+        <Row className='TechnicalRow' >
+            <Col> <b> Manufacturer </b> </Col>
+            <Col>Hynix</Col>
         </Row>
 
-        <Row style={{paddingBottom:"1%",paddingTop:"1%",border:"1px solid black"}}>
-            <Col> <b> two </b> </Col>
-            <Col>2</Col>
+        <Row className='TechnicalRow' >
+            <Col> <b> Manufacturer Part #	 </b> </Col>
+            <Col>HMA84GR7AFR4N-UH</Col>
         </Row>
-        <Row style={{paddingBottom:"1%",paddingTop:"1%",border:"1px solid black"}}>
-            <Col> <b> three </b> </Col>
-            <Col>3</Col>
-        </Row>
-
-        <Row style={{paddingBottom:"1%",paddingTop:"1%",border:"1px solid black"}}>
-            <Col> <b> four </b> </Col>
-            <Col>4</Col>
+        <Row className='TechnicalRow' >
+            <Col> <b> Memory Type </b> </Col>
+            <Col>DDR4 SDRAM</Col>
         </Row>
 
-        <Row style={{paddingBottom:"1%",paddingTop:"1%",border:"1px solid black"}}>
+        <Row className='TechnicalRow'  >
+            <Col> <b> Capacity </b> </Col>
+            <Col>32GB</Col>
+        </Row>
+
+        <Row className='TechnicalRow' style={{borderBottom:"2px solid gray"}} >
             <Col> <b> five </b> </Col>
             <Col>5</Col>
         </Row>
+        </Container>
+    </Col>
+    <Col md={1}></Col>
+    <Col className='Contact-Form' sm={2} md={3} >
+      <h5 style={{marginBottom:"10%",textDecoration:"underline"}}>Request For Quote!</h5>
+          <Form  >
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicQuantity">
+              <Form.Label>Quantity</Form.Label>
+              <Form.Control type="number" placeholder="Enter quantity" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.Message">
+            <Form.Label>How Soon You Need It?</Form.Label>
+            <Form.Select aria-label="Default select example">
+      <option value="Today">Today</option>
+      <option value="This Week">This Week</option>
+      <option value="This Month">This Month</option>
+    </Form.Select>
+            </Form.Group>
+
+
+
+
+            <Button variant="dark" type="submit">
+              Submit
+            </Button>
+          </Form>
     </Col>
 </Row>
-<Row style={{marginTop:"5%",width:"100%"}}>
-    <h3 style={{textAlign:"start"}}>General Information</h3>
-    <ul style={{marginLeft:"3%",marginTop:"1%"}}>
-        <li style={{float:"left"}} >The CPU you are ordering, if it is designated as OEM it can be NEW or Refurbished.</li>
-        <br />
-        <li style={{float:"left"}} >The CPU you are ordering, if it is designated as OEM it can be NEW or Refurbished.</li>
-        <br />
-        <li style={{float:"left"}} >The CPU you are ordering, if it is designated as OEM it can be NEW or Refurbished.</li>
-        <br />
-        <li style={{float:"left"}} >The CPU you are ordering, if it is designated as OEM it can be NEW or Refurbished.</li>
-        <br />
-    </ul>
+<Row style={{marginTop:"5%",width:"60%"}}>
+    <h2 >General Information</h2>
+    <p>
+    The CPU you are ordering, if it is designated as OEM it can be NEW or Refurbished.
+    The CPU you are ordering, if it is designated as OEM it can be NEW or Refurbished.
+    </p>
 </Row>
 </Container>
 <div style={{marginTop:"5%"}}>

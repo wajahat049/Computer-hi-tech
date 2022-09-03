@@ -13,7 +13,7 @@ import {Link} from "react-router-dom";
 function MainCard(props) {
   return (
     <Link to="/details" style={{ textDecoration: 'none' }}>
-    <Card >
+    <Card className="Product-Card" >
    <div className="insideCard">
     <Card.Img  variant="top" src={props.src} />
     </div>
@@ -27,6 +27,8 @@ function MainCard(props) {
       <Button variant="dark" style={{width:"100%"}} >Add to Cart</Button>
     </Card.Body>
     </div>
+    <div className='lineCard' >
+      </div>
   </Card>
   </Link>
   );

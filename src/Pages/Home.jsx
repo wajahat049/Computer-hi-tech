@@ -26,6 +26,7 @@ import ProductCarousel from '../Components/ProductCarousel';
 
 
 function Home(props) {
+  const history = useHistory()
   const imgArr=["https://www.memory4less.com/images/products/img0922m/HYN-D4-R-LO-N-sm.jpg",
   "https://www.memory4less.com/images/products/img0922/SNP917VKC-128G-sm.jpg",
   "https://www.memory4less.com/Images/products/img0922a/HCBB-75W-A-sm.jpg",
@@ -77,6 +78,16 @@ function Home(props) {
         // />
       // </> */}
     {/* <SearchBar/> */}
+    <Row >
+      <img 
+      src={"https://media2.giphy.com/media/3oKIPmHmREIV18Xtbq/giphy.gif"} 
+      // src={" https://media2.giphy.com/media/j0qclsfQMGBhaVvYGT/200.gif"}
+      height="500px"/>
+      <div className='HomeBanner'>
+        <h3 style={{color:"white"}}>All Computer Parts Available at Reasonable Price</h3>
+      <Button onClick={()=>history.push("/categories")} style={{fontSize:"20px"}} variant="outline-secondary">Buy Our Products</Button>{' '}
+      </div>
+    </Row>
     <ControlledCarousel/>
     <div style={{width:"100%",height:"40px",textAlign:"center",marginTop:"5%"}}>
       <span className="heading"> Featured Products </span>
