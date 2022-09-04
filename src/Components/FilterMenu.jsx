@@ -23,11 +23,15 @@ import { useParams } from "react-router-dom";
 
 const FilterMenuMemories = (props) => {
   
-    const Arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  
     const [open, setOpen] = useState(false);
   
     const handleToggle = () => setOpen(!open);
+    const tabs = [
+      {id:1,label:"Memory Type",Options:["DDR4 LRDIMM","DDR3 LRDIMM","DDR4 SDRAM"]},
+      {id:2,label:"Capacity",Options:["512 GB","256 GB","128 GB","8 GB","4 GB"]},
+      {id:3,label:"Data Transfer Rate",Options:["3200 MHz","2933 MHz","2666 MHz"]},
+      {id:4,label:"Voltage",Options:["2.5 V","1.8 V","1.5 V"]}
+    ]
   
     return (
       <Drawer className="react-bootstrap-drawer " {...props}>
@@ -42,193 +46,32 @@ const FilterMenuMemories = (props) => {
               </Drawer.Header>
               <Drawer.Nav>
                 <div className="mb-2">
-                  <Accordion defaultActiveKey="0" flush>
-                    <Accordion.Item eventKey="0">
-                      <Accordion.Header>Memory Type</Accordion.Header>
+                {tabs.map(tab => (
+        <Accordion key={tab.id} defaultActiveKey={tab.id} flush>
+           <Accordion.Item eventKey="0">
+                      <Accordion.Header>{tab.label}</Accordion.Header>
                       <Accordion.Body>
                         <Row>
-                          <Form.Group
+                        {tab.Options.map((option)=>{
+                            return(
+                            <Form.Group
                             className="mb-1"
                             controlId="formBasicCheckbox"
                           >
                             <Form.Check
                               style={{ width: "100%" }}
                               type="checkbox"
-                              label="DDR4 LRDIMM"
+                              label={option}
                             />
                           </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="DDR3 LRDIMM"
-                            />{" "}
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="DDR4 SDRAM"
-                            />
-                          </Form.Group>
+                            )
+                          })}
                         </Row>
                       </Accordion.Body>
                     </Accordion.Item>
-                    <Accordion.Item eventKey="1">
-                      <Accordion.Header>Capacity</Accordion.Header>
-                      <Accordion.Body>
-                        <Row>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="1 TB"
-                            />
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="512 GB "
-                            />{" "}
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="256 GB"
-                            />
-                          </Form.Group>
-                        </Row>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                    <Accordion.Item eventKey="2">
-                      <Accordion.Header>Data Transfer Rate</Accordion.Header>
-                      <Accordion.Body>
-                        <Row>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="3200 MHz"
-                            />
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="2933 MHz "
-                            />{" "}
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="2666 MHz"
-                            />
-                          </Form.Group>
-                        </Row>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                    <Accordion.Item eventKey="3">
-                      <Accordion.Header>Voltage</Accordion.Header>
-                      <Accordion.Body>
-                        <Row>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="2.5 V"
-                            />
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="1.8 V"
-                            />{" "}
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="1.5 V"
-                            />
-                          </Form.Group>
-                        </Row>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                    <Accordion.Item eventKey="4">
-                      <Accordion.Header>Pins</Accordion.Header>
-                      <Accordion.Body>
-                        <Row>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="288 Pins"
-                            />
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="240 Pins"
-                            />{" "}
-                          </Form.Group>
-                          <Form.Group
-                            className="mb-1"
-                            controlId="formBasicCheckbox"
-                          >
-                            <Form.Check
-                              style={{ width: "100%" }}
-                              type="checkbox"
-                              label="240 Pins"
-                            />
-                          </Form.Group>
-                        </Row>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  </Accordion>
+                    </Accordion>
+          ))}
+          <Button style={{marginTop:"5%",padding:"2% 7% 2% 7%"}} variant="dark">Apply</Button>
                 </div>
               </Drawer.Nav>
             </Drawer.ToC>
@@ -238,4 +81,195 @@ const FilterMenuMemories = (props) => {
     );
   };
 
-  export {FilterMenuMemories}
+  const FilterMenuCPUs = (props) => {
+  
+    const [open, setOpen] = useState(false);
+  
+    const handleToggle = () => setOpen(!open);
+    const tabs = [
+      {id:1,label:"CPU Socket Type",Options:["LGA 2066","LGA 1151"]},
+      {id:2,label:"Clock Speed",Options:["3.60 GHz","3.59 GHz","2.90 GHz"]},
+      {id:3,label:"L3 Cache Size",Options:["11 MB","8 MB"]},
+      {id:4,label:"Core",Options:["Intel i3","Intel i5","Intel i7","Intel i9"]},
+      {id:5,label:"Generation",Options:["3rd","4th","5th","6th","7th","8th","9th","10th","11th"]},
+      {id:6,label:"Category",Options:["Server","Desktop","Mobile"]}
+    ]
+  
+    return (
+      <Drawer className="react-bootstrap-drawer " {...props}>
+        <Drawer.Toggle  onClick={handleToggle} />
+  
+        <Collapse in={open}>
+          <Drawer.Overflow>
+            <Drawer.ToC>
+              <Drawer.Header>
+                {" "}
+                <h3> Filters </h3>
+              </Drawer.Header>
+              <Drawer.Nav>
+                <div className="mb-2">
+                {tabs.map(tab => (
+        <Accordion key={tab.id} defaultActiveKey={tab.id} flush>
+           <Accordion.Item eventKey="0">
+                      <Accordion.Header>{tab.label}</Accordion.Header>
+                      <Accordion.Body>
+                        <Row>
+                          {tab.Options.map((option)=>{
+                            return(
+                            <Form.Group
+                            className="mb-1"
+                            controlId="formBasicCheckbox"
+                          >
+                            <Form.Check
+                              style={{ width: "100%" }}
+                              type="checkbox"
+                              label={option}
+                            />
+                          </Form.Group>
+                            )
+                          })}
+                        </Row>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    </Accordion>
+          ))}
+          <Button style={{marginTop:"5%",padding:"2% 7% 2% 7%"}} variant="dark">Apply</Button>
+                </div>
+              </Drawer.Nav>
+            </Drawer.ToC>
+          </Drawer.Overflow>
+        </Collapse>
+      </Drawer>
+    );
+  };
+
+
+
+  const FilterMenuHardDrives = (props) => {
+  
+    const [open, setOpen] = useState(false);
+  
+    const handleToggle = () => setOpen(!open);
+    const tabs = [
+      {id:1,label:"Brand",Options:["Apple","Dell","EMC","Fujitsu","IBM","HP","Lenovo","Toshiba","Samsung"]},
+      {id:2,label:"Capacity",Options:["10 TB","8 TB","6 TB","4 TB","1 TB","750 GB","500 GB"]},
+      {id:3,label:"Interface",Options:["Serial-ATA (SATA)","Serial Attached SCSI (SAS)","Fibre Channel (FC)","USB (Internal)"]},
+      {id:4,label:"Speed",Options:["15000 RPM","10000 RPM","7200 RPM","5900 RPM"]},
+      {id:5,label:"Segment",Options:["Hitachi Datacenter","Seagate Datacenter","Toshiba Datacenter","Hitachi Enterprise","Seagate Enterprise","Toshiba Enterprise","Hitachi NAS","Seagate NAS","Toshiba NAS"]},
+    ]
+  
+    return (
+      <Drawer className="react-bootstrap-drawer " {...props}>
+        <Drawer.Toggle  onClick={handleToggle} />
+  
+        <Collapse in={open}>
+          <Drawer.Overflow>
+            <Drawer.ToC>
+              <Drawer.Header>
+                {" "}
+                <h3> Filters </h3>
+              </Drawer.Header>
+              <Drawer.Nav>
+                <div className="mb-2">
+                {tabs.map(tab => (
+        <Accordion key={tab.id} defaultActiveKey={tab.id} flush>
+           <Accordion.Item eventKey="0">
+                      <Accordion.Header>{tab.label}</Accordion.Header>
+                      <Accordion.Body>
+                        <Row>
+                          {tab.Options.map((option)=>{
+                            return(
+                            <Form.Group
+                            className="mb-1"
+                            controlId="formBasicCheckbox"
+                          >
+                            <Form.Check
+                              style={{ width: "100%" }}
+                              type="checkbox"
+                              label={option}
+                            />
+                          </Form.Group>
+                            )
+                          })}
+                        </Row>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    </Accordion>
+          ))}
+          <Button style={{marginTop:"5%",padding:"2% 7% 2% 7%"}} variant="dark">Apply</Button>
+                </div>
+              </Drawer.Nav>
+            </Drawer.ToC>
+          </Drawer.Overflow>
+        </Collapse>
+      </Drawer>
+    );
+  };
+
+
+
+  const FilterMenuSSDs = (props) => {
+  
+    const [open, setOpen] = useState(false);
+  
+    const handleToggle = () => setOpen(!open);
+    const tabs = [
+      {id:1,label:"Brand",Options:["Crucial","Dell","EMC","Kingston","IBM","HP","Lenovo","Toshiba","Samsung","Intel","Segate"]},
+      {id:2,label:"Form Factor",Options:["mSATA","M.2 (NGFF)","2.5-inch Drive","3.5-inch Drive","Add-in Card","DOM"]},
+      {id:3,label:"Interface",Options:["Serial-ATA (SATA)","Serial Attached SCSI (SAS)","Fibre Channel (FC)","USB (Internal)"]},
+      {id:4,label:"Capacity",Options:["4 TB","2 TB","1 TB","750 GB","500 GB","250 GB","128 GB"]},
+      {id:5,label:"Flash Type",Options:["SLC","MLC","TLC"]},
+      {id:6,label:"Category",Options:["EnterPrise","Desktop","Laptop"]},
+      
+    ]
+  
+    return (
+      <Drawer className="react-bootstrap-drawer " {...props}>
+        <Drawer.Toggle  onClick={handleToggle} />
+  
+        <Collapse in={open}>
+          <Drawer.Overflow>
+            <Drawer.ToC>
+              <Drawer.Header>
+                {" "}
+                <h3> Filters </h3>
+              </Drawer.Header>
+              <Drawer.Nav>
+                <div className="mb-2">
+                {tabs.map(tab => (
+        <Accordion key={tab.id} defaultActiveKey={tab.id} flush>
+           <Accordion.Item eventKey="0">
+                      <Accordion.Header>{tab.label}</Accordion.Header>
+                      <Accordion.Body>
+                        <Row>
+                          {tab.Options.map((option)=>{
+                            return(
+                            <Form.Group
+                            className="mb-1"
+                            controlId="formBasicCheckbox"
+                          >
+                            <Form.Check
+                              style={{ width: "100%" }}
+                              type="checkbox"
+                              label={option}
+                            />
+                          </Form.Group>
+                            )
+                          })}
+                        </Row>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    </Accordion>
+          ))}
+          <Button style={{marginTop:"5%",padding:"2% 7% 2% 7%"}} variant="dark">Apply</Button>
+                </div>
+              </Drawer.Nav>
+            </Drawer.ToC>
+          </Drawer.Overflow>
+        </Collapse>
+      </Drawer>
+    );
+  };
+
+
+  export {FilterMenuMemories,FilterMenuCPUs,FilterMenuHardDrives,FilterMenuSSDs}

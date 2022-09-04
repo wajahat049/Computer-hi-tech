@@ -3,19 +3,15 @@ import '../App.css';
 import React,{useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import {Button,Row,Table,Image,Form,Col} from "react-bootstrap";
-import ModalSignup from "./Signup"
-import NavBar from "./Navbar"
-import ControlledCarousel from "./Carousel"
-import SearchBar from "./SearchBar"
-import MainCard from "./Card"
-import AllCards from "./AllCards"
 import {
   Link
 } from "react-router-dom";
-import Footer from './Footer';
 import {BiLogIn} from "react-icons/bi"
 import {motion,useAnimation} from "framer-motion"
 import {useInView} from "react-intersection-observer"
+import CartLogo1 from "../Images/search.png" 
+import CartLogo2 from "../Images/computer.png" 
+
 
 
 
@@ -47,6 +43,13 @@ useEffect(()=>{
 })
   return (
     <div ref={ref} style={{textAlign:"-webkit-center",marginTop:"5%"}}>
+      <img height={"100px"} width={"100px"} 
+      src={CartLogo1
+      // src={CartLogo2
+    
+    }
+      
+      />
       <h1 style={{marginBottom:"5%",fontWeight:"bold"}}>Your Cart</h1>
       <motion.div 
                   initial={{x:"-200vw"}}

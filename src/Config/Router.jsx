@@ -8,7 +8,7 @@ import {
   import Home from "../Pages/Home"
   import AllCards from "../Components/AllCards"
   import Card from "../Components/Card"
-  import Cart from "../Components/Cart"
+  import Cart from "../Pages/Cart"
   import Details from "../Pages/Details"
   import NavBar from "../Components/Navbar"
   import Footer from "../Components/Footer"
@@ -18,6 +18,8 @@ import {
   import About from "../Pages/AboutUs"
 import Categories from "../Pages/Categories";
 import Category from "../Pages/Category";
+import CometChatComponent from "../Pages/CometChat";
+
 
 
 
@@ -43,6 +45,8 @@ import Category from "../Pages/Category";
                   <Route exact path="/about" component={About}/>
                   <Route exact path="/categories" component={Categories}/>
                   <Route exact path="/category/:id" component={Category}/>
+                  <Route exact path="/cometChat" component={CometChatComponent}/>
+
 
                 <Footer/>
 

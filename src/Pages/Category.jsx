@@ -20,7 +20,7 @@ import {
   import { Drawer } from "react-bootstrap-drawer";
   import background from "../Images/bg.jpg";
 import { useParams } from "react-router-dom";
-import { FilterMenuMemories } from "../Components/FilterMenu";
+import { FilterMenuCPUs, FilterMenuHardDrives, FilterMenuMemories, FilterMenuSSDs } from "../Components/FilterMenu";
   
   const Category = (props) => {
     const params = useParams()
@@ -39,7 +39,15 @@ import { FilterMenuMemories } from "../Components/FilterMenu";
         <SearchBar/>
       <Container fluid>
         <Row className="flex-xl-nowrap">
+          {params.id=="Memories"?
           <Col as={FilterMenuMemories} xs={12} md={3} lg={3} />
+    :params.id=="CPUs"?
+    <Col as={FilterMenuCPUs} xs={12} md={3} lg={3} />
+    :params.id=="HardDrives"?
+    <Col as={FilterMenuHardDrives} xs={12} md={3} lg={3} />
+    :params.id=="SSDs"?
+    <Col as={FilterMenuSSDs} xs={12} md={3} lg={3} />
+  :null}
           <Col xs={12} md={8} lg={9}>
             <div>
               <div style={{ width: "65%" }}>

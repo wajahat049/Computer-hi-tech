@@ -68,7 +68,7 @@ function Categories(props) {
 
   return (
 
-    <Container className="Categories">
+    <Container  className="Categories">
     <div  style={{width:"100%",height:"40px",textAlign:"center",marginTop:"2%",marginBottom:"10%"}}>
      <span className="heading"> Categories </span>
      </div>
