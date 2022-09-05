@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const{Login,loadMongoDb,postData, ContactForm, getCartData} = require("./functions.js")
+const{Login,loadMongoDb,postData, ContactForm, getCartData, addToCart} = require("./functions.js")
 
 loadMongoDb()
 
@@ -59,6 +59,13 @@ app.post("/Cart", (req, res) => {
   console.log("Cart", req.body);
   getCartData(req, res);
 });
+
+// For Add to Cart Data
+app.post("/AddToCart", (req, res) => {
+  console.log("AddToCart", req.body);
+  addToCart(req, res);
+});
+
 
 const PORT = process.env.PORT || 8001;
 

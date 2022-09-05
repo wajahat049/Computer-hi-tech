@@ -79,15 +79,31 @@ const ContactForm = async (req, res) => {
 
 
 //get cart data
-const getCartData = async(req, res) => {
+const getCartData = async (req, res) => {
     console.log("cart data get", req.body.email)
     let collection = mongoResult.db("ComputerHiTech").collection("Cart");
-        collection.find({ email: req.body.email }).toArray().then((result, err) => {
-            console.log(result)
-            res.status(200).send({ result: result })
-            return
-        })
+    collection.find({ email: req.body.email }).toArray().then((result, err) => {
+        console.log(result)
+        res.status(200).send({ result: result })
+        return
+    })
 
 }
 
-module.exports = { Login, postData, loadMongoDb, ContactForm, getCartData }
+
+//add to cart 
+const addToCart = async (req, res) => {
+    console.log("AddToCart data ", req.body.email, req.body.items, req.body.productImg, req.body.totalPrice)
+    let collection = mongoResult.db("ComputerHiTech").collection("Cart");
+    var newvalues = {
+        $set: {
+            items: req.body.items, productImg: req.body.productImg, totalPrice: req.body.totalPrice
+        }
+    };
+    collection.updateOne({ email: req.body.email }, newvalues, (result, err) => {
+        res.status(200).send({ message: "Successfully add to Cart" })
+        return
+    })
+}
+
+module.exports = { Login, postData, loadMongoDb, ContactForm, getCartData, addToCart }
