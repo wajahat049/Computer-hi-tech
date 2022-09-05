@@ -1,18 +1,7 @@
 import '../App.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Row, Col, Form } from "react-bootstrap";
-import ModalSignup from "../Components/Signup"
-import NavBar from "../Components/Navbar"
-import ControlledCarousel from "../Components/Carousel"
-import SearchBar from "../Components/SearchBar"
-import MainCard from "../Components/Card"
-import AllCards from "../Components/AllCards"
-import {
-  Link, useHistory
-} from "react-router-dom";
-import Footer from '../Components/Footer';
-import { BiLogIn } from "react-icons/bi"
 import { motion, useAnimation } from "framer-motion"
 import InView, { useInView } from "react-intersection-observer"
 import Carousel from "react-multi-carousel";
@@ -39,6 +28,35 @@ function Contact(props) {
   const [refLatest, inViewLatest] = useInView({ threshold: 0.7 })
   const animationFeatured = useAnimation()
   const animationLatest = useAnimation()
+
+  const [filled, setFilled] = useState(false)
+
+  // Contact API
+  const SubmitContactForm = (event) => {
+    // event.preventDefault()
+    var name = document.getElementById("name").value
+    var email = document.getElementById("email").value
+    var message = document.getElementById("message").value
+    console.log(name, email, message)
+    if (name != "" && email != "" && message != "") {
+    console.log("fetch", name, email, message)
+      fetch(process.env.REACT_APP_BASE_URL + '/ContactForm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      })
+        .then(response => response.json())
+        .then(data => console.log(data)
+        ).then(
+          setFilled(true)
+
+        ).then(document.getElementById("name").value = "",
+          document.getElementById("email").value = "",
+          document.getElementById("message").value = ""
+        )
+
+    }
+  }
 
 
   useEffect(() => {
@@ -110,28 +128,27 @@ function Contact(props) {
 
         </Col>
         <Col className='Contact-Form' md={4} sm={12}>
-          <Form  style={{color: "white"}}>
+          <Form style={{ color: "white" }}>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Full Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter full name" />
+              <Form.Control id='name' type="text" placeholder="Enter full name" required  />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control id='email' type="email" placeholder="Enter email" required />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.Message">
               <Form.Label >Your Message</Form.Label>
-              <Form.Control placeholder='Your valuable Response' as="textarea" rows={4} />
+              <Form.Control id='message' placeholder='Your valuable Response' as="textarea" rows={4} required />
             </Form.Group>
-
-
-
-
-            <Button variant="dark" type="submit">
-              Submit
-            </Button>
           </Form>
+          <Button variant="dark" onClick={(e) => SubmitContactForm(e)}>
+              {
+                filled ? <img width={35} height={30} src="https://www.freeiconspng.com/uploads/accept-tick-icon-12.png" />
+                  : "Submit"
+              }
+            </Button>
         </Col>
       </Row>
 
