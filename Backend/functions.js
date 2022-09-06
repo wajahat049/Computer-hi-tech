@@ -22,14 +22,14 @@ async function loadMongoDb() {
 }
 
 // Login
-const Login = async(req, res) => {
+const Login = async (req, res) => {
     // console.log("Req", req.body)
     let collection = mongoResult.db("ComputerHiTech").collection("Users");
 
     collection.findOne({ email: req.body.email }).then((user, err) => {
         if (user) {
             if (user.pass == req.body.pass) {
-                res.status(400).send({ message: "Successfully Login", variant: "success" });
+                res.status(200).send({ message: "Successfully Login", variant: "success" });
                 console.log("Successfully Login")
             } else {
                 res.status(400).send({ message: "Incorrect Password", variant: "error" });
@@ -46,14 +46,14 @@ const Login = async(req, res) => {
 };
 
 // Signup
-const postData = async(req, res) => {
+const postData = async (req, res) => {
     let collection = mongoResult.db("ComputerHiTech").collection("Users");
     collection.findOne({ email: req.body.email }).then((user, err) => {
         if (user) {
             res.status(400).send({ message: "Failed! Email already exist", variant: "error" });
             console.log("Failed! Email has already exist")
         } else {
-            collection.insertOne({ email: req.body.email, password: req.body.password, name: req.body.name }, function(error, response) {
+            collection.insertOne({ email: req.body.email, password: req.body.password, name: req.body.name }, function (error, response) {
                 if (err) throw err;
                 res.status(200).send({ message: "Successfully Signup", variant: "success" });
                 console.log("Successfully Signup")
@@ -65,4 +65,45 @@ const postData = async(req, res) => {
 
 }
 
-module.exports = { Login, postData, loadMongoDb}
+// Contact Form
+const ContactForm = async (req, res) => {
+    let collection = mongoResult.db("ComputerHiTech").collection("ContactFormInfo");
+    collection.insertOne({ email: req.body.email, name: req.body.name, mesage: req.body.message }, function (error, response) {
+        if (error) throw error;
+        console.log("Successfully Submitted Contact form")
+        res.status(200).send({ message: "Successfully Filled" })
+        return;
+    });
+
+}
+
+
+//get cart data
+const getCartData = async (req, res) => {
+    console.log("cart data get", req.body.email)
+    let collection = mongoResult.db("ComputerHiTech").collection("Cart");
+    collection.find({ email: req.body.email }).toArray().then((result, err) => {
+        console.log(result)
+        res.status(200).send({ result: result })
+        return
+    })
+
+}
+
+
+//add to cart 
+const addToCart = async (req, res) => {
+    console.log("AddToCart data ", req.body.email, req.body.items, req.body.productImg, req.body.totalPrice)
+    let collection = mongoResult.db("ComputerHiTech").collection("Cart");
+    var newvalues = {
+        $set: {
+            items: req.body.items, productImg: req.body.productImg, totalPrice: req.body.totalPrice
+        }
+    };
+    collection.updateOne({ email: req.body.email }, newvalues, (result, err) => {
+        res.status(200).send({ message: "Successfully add to Cart" })
+        return
+    })
+}
+
+module.exports = { Login, postData, loadMongoDb, ContactForm, getCartData, addToCart }
