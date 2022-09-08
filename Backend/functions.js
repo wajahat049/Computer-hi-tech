@@ -26,36 +26,8 @@ async function loadMongoDb() {
 }
 
 const LoadDataIntoDatabase=()=>{
-    // set up the request parameters
-// const params = {
-//     api_key: "C15C2F4CE7F14E2EA1AFCFEE8846D42C",
-//     type: "search",
-//     amazon_domain: "amazon.com",
-//     search_term: "computer memory"
-//   }
-// //   let collection = mongoResult.db("ComputerHiTech").collection("Data");
-//   // make the http GET request to Rainforest API
-//   axios.get('https://api.amzapi.com/v1/search?apikey=362f6f50-2f77-11ed-a523-5f6e2f40f0f3&query=computer memory', { })
-//     .then(response => {
-//       // print the JSON response from Rainforest API
-//       var data = response.data.search_results
-//       data.map((e)=>{
-//         console.log(e.title);
-//         console.log(e.asin);
-//         console.log(e.price.value);
-//         console.log(e.delivery);
-//         // collection.insertOne({ title: e.title, asin: e.asin, price: e.price,delivery:e.delivery,category:"memory" }, function (error, response) {
-//         //     // console.log("Successfully Signup")
-//         // });
-//       })
-//       // console.log("rsponseeeee",response.data.search_results)
-  
-//     }).catch(error => {
-//       // catch and print the error
-//       console.log(error.response);
-//     })
 var options = {
-    url: 'https://api.amzapi.com/v1/search?apikey=362f6f50-2f77-11ed-a523-5f6e2f40f0f3&query=motherboardpc'
+    url: 'https://api.amzapi.com/v1/search?apikey=362f6f50-2f77-11ed-a523-5f6e2f40f0f3&query=computernetworkaccessories'
   };
   
   function callback(error, response, body) {
@@ -70,7 +42,7 @@ var options = {
             console.log("ratings",item.rating);
             console.log("delivery",item.delivery);
             let collection = mongoResult.db("ComputerHiTech").collection("Data");
-collection.insertOne({ title: item.title, image:item.image, asin: item.asin, price: item.price,delivery:item.delivery,ratings:item.ratings,category:"MotherBoards" }, function (error, response) {
+collection.insertOne({ title: item.title, image:item.image, asin: item.asin, price: item.prices[0].value,delivery:item.delivery,ratings:item.rating,category:"Networks" }, function (error, response) {
             // console.log("Successfully Signup")
         });
 

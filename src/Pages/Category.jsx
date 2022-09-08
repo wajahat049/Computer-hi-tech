@@ -45,7 +45,7 @@ import { FilterMenuCPUs, FilterMenuHardDrives, FilterMenuMemories, FilterMenuSSD
         fetch(process.env.REACT_APP_BASE_URL + '/ProductsAcctoCategory', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ category:"memory"})
+        body: JSON.stringify({ category:params.id})
       })
         .then(response => response.json())
         .then(data => {
