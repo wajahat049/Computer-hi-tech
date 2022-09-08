@@ -23,6 +23,12 @@ import { useParams } from "react-router-dom";
 import { FilterMenuCPUs, FilterMenuHardDrives, FilterMenuMemories, FilterMenuSSDs } from "../Components/FilterMenu";
   
   const Category = (props) => {
+    const [search,setSearch] = useState("")
+    const [btnPressed,setBtnPressed] = useState(false)
+    const [products,setProducts] = useState([])
+    const [sort,setSort] = useState("")
+
+
     const params = useParams()
     const [paginationSize,setpaginationSize] = useState("lg")
     const { height, width } = useWindowDimensions();
@@ -32,11 +38,56 @@ import { FilterMenuCPUs, FilterMenuHardDrives, FilterMenuMemories, FilterMenuSSD
       if(width<500){
         setpaginationSize("sm")
       }
-      console.log("xbxsxnsx;nsnxsnx;sx",width)
     },[width])
+
+    useEffect(()=>{
+
+        fetch(process.env.REACT_APP_BASE_URL + '/ProductsAcctoCategory', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category:"memory"})
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("SEARCH",data.result)
+      if(search==""){
+        setProducts(data.result)
+      }
+      else if(btnPressed){
+        const result = data.result.filter(item => item.title.toLowerCase().includes(search.toLowerCase()));
+        console.log("RESULT SEARCH",result)
+        setProducts(result)
+      }
+     if(sort=="Low to High Price"){
+        console.log("SORTING",data.result.sort(function(a, b){return a.price.value - b.price.value}))
+        setProducts(data.result.sort(function(a, b){return a.price.value - b.price.value}))
+      }
+      if(sort=="High to Low Price"){
+        console.log("SORTING",data.result.sort(function(a, b){return a.price.value - b.price.value}))
+        setProducts(data.result.sort(function(a, b){return b.price.value - a.price.value}))
+      }
+      });
+
+    },[btnPressed,search,sort])
+
+    // useEffect(()=>{
+    //   if(btnPressed && search!=""){
+    //   fetch(process.env.REACT_APP_BASE_URL + '/Search', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ search})
+    //   })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       console.log("SEACRH",data.result)
+    //     }
+    //     );
+    //   }
+    // },[btnPressed])
+
     return (
         <>
-        <SearchBar/>
+        <SearchBar setSearch={setSearch} setBtnPressed={setBtnPressed}/>
       <Container fluid>
         <Row className="flex-xl-nowrap">
           {params.id=="Memories"?
@@ -54,10 +105,11 @@ import { FilterMenuCPUs, FilterMenuHardDrives, FilterMenuMemories, FilterMenuSSD
                 <h1>{params.id}</h1>
               </div>
               <div className="sort-bar">
-                <Form.Select aria-label="Default select example">
-                  <option value="1">Sort by Price(Low to High)</option>
-                  <option value="2">Sort by Price(High to Low)</option>
-                  <option value="3">Sort by Popularity</option>
+                <Form.Select onChange={(e)=>{setSort(e.target.value)}} aria-label="Default select example">
+                  <option>----</option>
+                  <option value="Low to High Price">Sort by Price(Low to High)</option>
+                  <option value="High to Low Price">Sort by Price(High to Low)</option>
+                  <option value="Popularity">Sort by Popularity</option>
                 </Form.Select>
               </div>
             <div style={{border:"2px solid white"}}  >
@@ -71,13 +123,13 @@ import { FilterMenuCPUs, FilterMenuHardDrives, FilterMenuMemories, FilterMenuSSD
                   marginTop: "5%"
                 }}
               >
-                {Arr.map(() => {
+                {products.map((item) => {
                   return (
                     
                       <MainCard
                         src="https://www.memory4less.com/images/products/Img0922/AB322-60001-lg.jpg"
-                        title="AB322-60001 HP 4GB PC133 133MHz "
-                        price="$313.78"
+                        title={item.title.slice(0,80)}
+                        price={`$${item.price.value}`}
                       />
                     
                   );

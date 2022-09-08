@@ -172,7 +172,7 @@ body .heading, h1, h2{
 }
 
 .card-title{
-  font-size:large !important;
+  font-size:12px !important;
   color:black;
   text-align: start;
 }
@@ -419,4 +419,20 @@ body .heading, h1, h2{
   text-align:center;
   position:absolute;
   top:45%;
+}
+
+.rcw-launcher{
+  background-color: #282c34 !important;
+}
+
+.rcw-client .rcw-message-text{
+  background-color: #282c34 !important;
+  color: white !important;
+
+}
+
+.rcw-conversation-container .rcw-header{
+  background-color: #282c34 !important;
+  color: white !important;
+  
 }

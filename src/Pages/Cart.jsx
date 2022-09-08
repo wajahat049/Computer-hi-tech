@@ -11,9 +11,9 @@ import {motion,useAnimation} from "framer-motion"
 import {useInView} from "react-intersection-observer"
 import { connect } from "react-redux";
 import CartLogo1 from "../Images/search.png" 
-import CartLogo2 from "../Images/computer.png" 
-
-
+import CartLogo2 from "../Images/computer.png"
+import StripeCheckout from "react-stripe-checkout";
+import CreditCard from "../Images/Credit card-bro.png"
 
 
 
@@ -39,11 +39,32 @@ function Cart(props) {
   const [items, setItems] = React.useState([]);
 
 
+  const publishableKey = "pk_test_51LfJUAEw3O5g6z40A1zVTfiRrfdFI8UQ17qFYNzd2q9UTO8ARzVCFXGSSKGcVXYAeGZQ3CQBIpPLJUzw6wwd1vQS00Q96rUppf";
+   
+  const onToken = token => {
+    const body = {
+      amount: 999,
+      token: token
+  };
+  
+  fetch(process.env.REACT_APP_BASE_URL + '/payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("stripe data", data)
+      }
+      );
+  };
+
+
   function getCart() {
     fetch(process.env.REACT_APP_BASE_URL + '/Cart', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: userInfo.email })
+      body: JSON.stringify({ email: "aleezah@gmail.com" })
     })
       .then(response => response.json())
       .then(data => {
@@ -72,6 +93,7 @@ function Cart(props) {
       })
     }
   })
+  
   return (
     <div ref={ref} style={{textAlign:"-webkit-center",marginTop:"5%"}}>
       <img height={"100px"} width={"100px"} 
@@ -132,8 +154,24 @@ function Cart(props) {
             }
           </tbody>
         </Table>
-      </motion.div>
 
+      
+
+      </motion.div>
+      <StripeCheckout
+      label="Pay With Card" //Component button text
+      name="Computer Hi-tech" //Modal Header
+      description="Make your Payment"
+      panelLabel="PAY" //Submit button in modal
+      amount={999} //Amount in cents $9.99
+      token={onToken}
+      stripeKey={publishableKey}
+      image="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRC2ZVSzT9-ExtSSVCnuKFvd6w_dkj-l3cJEIu24uQ73PrniUaP" //Pop-in header image
+      billingAddress={false}
+      alipay // accept Alipay (default false)
+  bitcoin // accept Bitcoins (default false)
+  allowRememberMe // "Remember Me" option (default true)
+    />
 
     </div>
   );

@@ -18,7 +18,8 @@ import {
   import About from "../Pages/AboutUs"
 import Categories from "../Pages/Categories";
 import Category from "../Pages/Category";
-import CometChatComponent from "../Pages/CometChat";
+import Chat from "../Components/Chat"
+import CheckOut from "../Pages/CheckOut";
 
 
 
@@ -45,10 +46,12 @@ import CometChatComponent from "../Pages/CometChat";
                   <Route exact path="/about" component={About}/>
                   <Route exact path="/categories" component={Categories}/>
                   <Route exact path="/category/:id" component={Category}/>
-                  <Route exact path="/cometChat" component={CometChatComponent}/>
+                  <Route exact path="/checkout" component={CheckOut}/>
+
 
 
                 <Footer/>
+                <Chat/>
 
               </Router>
           )

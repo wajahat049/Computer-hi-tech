@@ -19,6 +19,7 @@ import InView, { useInView} from "react-intersection-observer"
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ProductCarousel from '../Components/ProductCarousel';
+// import Chat from '../Components/Chat';
 
 
 
@@ -157,8 +158,9 @@ function Home(props) {
               </Row>
             </Row>
           </div>
-    
-
+          {/* <div style={{width:"1000px",height:"1000px"}}> */}
+          {/* <Chat/> */}
+          {/* </div> */}
     </>
   );
 }

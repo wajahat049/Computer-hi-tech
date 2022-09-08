@@ -1,28 +1,5 @@
 // const axios = require('axios');
 
-// // set up the request parameters
-// const params = {
-//   api_key: "C15C2F4CE7F14E2EA1AFCFEE8846D42C",
-//   type: "search",
-//   amazon_domain: "amazon.com",
-//   output: "json",
-//   search_term: "memory cards",
-//   sort_by: "price_low_to_high"
-// }
-
-// // make the http GET request to Rainforest API
-// axios.get('https://api.rainforestapi.com/request', { params })
-//   .then(response => {
-
-//     // print the JSON response from Rainforest API
-//     console.log(JSON.stringify(response.data.search_results, 0, 10));
-//     // console.log("rsponseeeee",response.data.search_results)
-
-//   }).catch(error => {
-//     // catch and print the error
-//     console.log(error);
-//   })
-
 
 
 const express = require("express");
@@ -32,7 +9,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const{Login,loadMongoDb,postData, ContactForm, getCartData, addToCart} = require("./functions.js")
+const{Login,loadMongoDb,postData, ContactForm, getCartData, addToCart, AddChatMessageFromUser, getChatMessages, LoadDataIntoDatabase, StripePayment, ProductsAcctoCategory,getProducts} = require("./functions.js");
 
 loadMongoDb()
 
@@ -46,6 +23,14 @@ app.post("/CreateUser", (req, res) => {
 app.post("/Login", (req, res) => {
   console.log("New User", req.body);
   Login(req, res);
+});
+
+// All Data of Products
+app.get("/AllProducts", (req, res) => {
+  var resp = getProducts();
+  resp.then((e) => {
+    res.send(e);
+  });
 });
 
 // For ContactForm
@@ -66,9 +51,38 @@ app.post("/AddToCart", (req, res) => {
   addToCart(req, res);
 });
 
+// For Products According to Category
+app.post("/ProductsAcctoCategory", (req, res) => {
+  console.log("ProductsAcctoCategory", req.body);
+  ProductsAcctoCategory(req, res);
+});
+
+// For Adding Chat message from User
+app.post("/AddChatMessageFromUser", (req, res) => {
+  console.log("AddChatMessageFromUser", req.body);
+  AddChatMessageFromUser(req, res);
+});
+
+// For Adding Chat message from User
+app.post("/getChatMessages", (req, res) => {
+  console.log("getChatMessages", req.body);
+  getChatMessages(req, res);
+});
+
+// For Stripe Payment
+app.post("/payment", (req, res) => {
+  console.log("Stripe Payment", req.body);
+  StripePayment(req, res);
+});
+
 
 const PORT = process.env.PORT || 8001;
 
 app.listen(PORT, () => {
   console.log(`Server started on Port ${PORT}`);
 });
+
+// setTimeout(()=>{
+//   LoadDataIntoDatabase()
+//   },3000)
+
