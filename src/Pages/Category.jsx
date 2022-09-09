@@ -20,7 +20,7 @@ import {
   import { Drawer } from "react-bootstrap-drawer";
   import background from "../Images/bg.jpg";
 import { useParams } from "react-router-dom";
-import { FilterMenuCPUs, FilterMenuHardDrives, FilterMenuMemories, FilterMenuSSDs } from "../Components/FilterMenu";
+import { FilterMenuCPUs, FilterMenuGraphicCards, FilterMenuHardDrives, FilterMenuMemories, FilterMenuMotherBoards, FilterMenuNetworks, FilterMenuPoweSupplies, FilterMenuSSDs } from "../Components/FilterMenu";
   
   const Category = (props) => {
     const [search,setSearch] = useState("")
@@ -97,7 +97,15 @@ import { FilterMenuCPUs, FilterMenuHardDrives, FilterMenuMemories, FilterMenuSSD
     :params.id=="HardDrives"?
     <Col as={FilterMenuHardDrives} xs={12} md={3} lg={3} />
     :params.id=="SSDs"?
-    <Col as={FilterMenuSSDs} xs={12} md={3} lg={3} />
+    <Col as={FilterMenuSSDs} xs={12} md={3} lg={3} />:
+    params.id=="PowerSupplies"?
+    <Col as={FilterMenuPoweSupplies} xs={12} md={3} lg={3} />:
+    params.id=="MotherBoards"?
+    <Col as={FilterMenuMotherBoards} xs={12} md={3} lg={3} />:
+    params.id=="GraphicCards"?
+    <Col as={FilterMenuGraphicCards} xs={12} md={3} lg={3} />:
+    params.id=="Neworks"?
+    <Col as={FilterMenuNetworks} xs={12} md={3} lg={3} />
   :null}
           <Col xs={12} md={8} lg={9}>
             <div>
@@ -127,7 +135,7 @@ import { FilterMenuCPUs, FilterMenuHardDrives, FilterMenuMemories, FilterMenuSSD
                   return (
                     
                       <MainCard
-                        src="https://www.memory4less.com/images/products/Img0922/AB322-60001-lg.jpg"
+                        src={item.image}
                         title={item.title.slice(0,80)}
                         price={`$${item.price.value}`}
                       />

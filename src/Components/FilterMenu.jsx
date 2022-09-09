@@ -272,4 +272,257 @@ const FilterMenuMemories = (props) => {
   };
 
 
-  export {FilterMenuMemories,FilterMenuCPUs,FilterMenuHardDrives,FilterMenuSSDs}
+
+
+  const FilterMenuPoweSupplies = (props) => {
+  
+    const [open, setOpen] = useState(false);
+  
+    const handleToggle = () => setOpen(!open);
+    const tabs = [
+      {id:1,label:"Brand",Options:["Cooler Master","Dell","EVGA","HP","Intel","Sparkle"]},
+      {id:2,label:"Form Factor",Options:["ATX"]},
+      {id:3,label:"Product Series",Options:["eXtreme"]},
+      {id:4,label:"Maximum Watt Capacity",Options:["500 W"]},
+      {id:5,label:"Interface",Options:["PCI Express"]},
+      {id:6,label:"Connectors",Options:["Main Connector","12 V","SATA", "Floppy","Peripheral","PCI-Express"]},
+      
+    ]
+  
+    return (
+      <Drawer className="react-bootstrap-drawer " {...props}>
+        <Drawer.Toggle  onClick={handleToggle} />
+  
+        <Collapse in={open}>
+          <Drawer.Overflow>
+            <Drawer.ToC>
+              <Drawer.Header>
+                {" "}
+                <h3> Filters </h3>
+              </Drawer.Header>
+              <Drawer.Nav>
+                <div className="mb-2">
+                {tabs.map(tab => (
+        <Accordion key={tab.id} defaultActiveKey={tab.id} flush>
+           <Accordion.Item eventKey="0">
+                      <Accordion.Header>{tab.label}</Accordion.Header>
+                      <Accordion.Body>
+                        <Row>
+                          {tab.Options.map((option)=>{
+                            return(
+                            <Form.Group
+                            className="mb-1"
+                            controlId="formBasicCheckbox"
+                          >
+                            <Form.Check
+                              style={{ width: "100%" }}
+                              type="checkbox"
+                              label={option}
+                            />
+                          </Form.Group>
+                            )
+                          })}
+                        </Row>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    </Accordion>
+          ))}
+          <Button style={{marginTop:"5%",padding:"2% 7% 2% 7%"}} variant="dark">Apply</Button>
+                </div>
+              </Drawer.Nav>
+            </Drawer.ToC>
+          </Drawer.Overflow>
+        </Collapse>
+      </Drawer>
+    );
+  };
+
+  
+  const FilterMenuMotherBoards = (props) => {
+  
+    const [open, setOpen] = useState(false);
+  
+    const handleToggle = () => setOpen(!open);
+    const tabs = [
+      {id:1,label:"Brand",Options:["AMD","ASUS","ASRock","Dell","EVGA","GigaByte","HP","IBM","Intel","Lenovo"]},
+      {id:2,label:"Form Factor",Options:["ATX","E-ATX","Flex-ATX","Micro-ATX","Mini-ITX","Thin Mini-ITX","UATX"]},
+      {id:3,label:"Category",Options:["Server","Gaming","Desktop","Laptop","Workstation"]},
+      {id:4,label:"Socket",Options:["G34","TR4","AM4","AM3+","AM3","AM2","AM2+","FM2","FM2+","3647","2066","2011-V3","2011","1366"]}
+      
+    ]
+  
+    return (
+      <Drawer className="react-bootstrap-drawer " {...props}>
+        <Drawer.Toggle  onClick={handleToggle} />
+  
+        <Collapse in={open}>
+          <Drawer.Overflow>
+            <Drawer.ToC>
+              <Drawer.Header>
+                {" "}
+                <h3> Filters </h3>
+              </Drawer.Header>
+              <Drawer.Nav>
+                <div className="mb-2">
+                {tabs.map(tab => (
+        <Accordion key={tab.id} defaultActiveKey={tab.id} flush>
+           <Accordion.Item eventKey="0">
+                      <Accordion.Header>{tab.label}</Accordion.Header>
+                      <Accordion.Body>
+                        <Row>
+                          {tab.Options.map((option)=>{
+                            return(
+                            <Form.Group
+                            className="mb-1"
+                            controlId="formBasicCheckbox"
+                          >
+                            <Form.Check
+                              style={{ width: "100%" }}
+                              type="checkbox"
+                              label={option}
+                            />
+                          </Form.Group>
+                            )
+                          })}
+                        </Row>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    </Accordion>
+          ))}
+          <Button style={{marginTop:"5%",padding:"2% 7% 2% 7%"}} variant="dark">Apply</Button>
+                </div>
+              </Drawer.Nav>
+            </Drawer.ToC>
+          </Drawer.Overflow>
+        </Collapse>
+      </Drawer>
+    );
+  };
+
+
+
+
+  const FilterMenuGraphicCards = (props) => {
+  
+    const [open, setOpen] = useState(false);
+  
+    const handleToggle = () => setOpen(!open);
+    const tabs = [
+      {id:1,label:"Brand",Options:["ASUS","ATI","EVGA","Nvidia","PNY"]},
+      {id:2,label:"GPU Model",Options:["AMD Radeon HD 5450"]},
+      {id:3,label:"Memory Size",Options:["512 MB"]},
+      {id:5,label:"Interface",Options:["PCI Express x16"]}
+      
+    ]
+  
+    return (
+      <Drawer className="react-bootstrap-drawer " {...props}>
+        <Drawer.Toggle  onClick={handleToggle} />
+  
+        <Collapse in={open}>
+          <Drawer.Overflow>
+            <Drawer.ToC>
+              <Drawer.Header>
+                {" "}
+                <h3> Filters </h3>
+              </Drawer.Header>
+              <Drawer.Nav>
+                <div className="mb-2">
+                {tabs.map(tab => (
+        <Accordion key={tab.id} defaultActiveKey={tab.id} flush>
+           <Accordion.Item eventKey="0">
+                      <Accordion.Header>{tab.label}</Accordion.Header>
+                      <Accordion.Body>
+                        <Row>
+                          {tab.Options.map((option)=>{
+                            return(
+                            <Form.Group
+                            className="mb-1"
+                            controlId="formBasicCheckbox"
+                          >
+                            <Form.Check
+                              style={{ width: "100%" }}
+                              type="checkbox"
+                              label={option}
+                            />
+                          </Form.Group>
+                            )
+                          })}
+                        </Row>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    </Accordion>
+          ))}
+          <Button style={{marginTop:"5%",padding:"2% 7% 2% 7%"}} variant="dark">Apply</Button>
+                </div>
+              </Drawer.Nav>
+            </Drawer.ToC>
+          </Drawer.Overflow>
+        </Collapse>
+      </Drawer>
+    );
+  };
+
+
+
+  const FilterMenuNetworks = (props) => {
+  
+    const [open, setOpen] = useState(false);
+  
+    const handleToggle = () => setOpen(!open);
+    const tabs = [
+      {id:1,label:"Brand",Options:["3Com","Adtran","Allied Telessis","Brocade","Cisco","Dell","D-Link","HP","IBM","Intel","Juniper","NetGear","Nortel","Qlogic"]},
+      {id:2,label:"Category",Options:["Network Adapters","Transceiver","Routers","Switches","Wireless Networking","Media Converters"]},
+      {id:3,label:"Popular Products",Options:["Cisco Switches","Linksys Routers","Intel Network Adapters","Finisar Transciever","Transition Media Converters","HP Network Accessories"]}
+      
+    ]
+  
+    return (
+      <Drawer className="react-bootstrap-drawer " {...props}>
+        <Drawer.Toggle  onClick={handleToggle} />
+  
+        <Collapse in={open}>
+          <Drawer.Overflow>
+            <Drawer.ToC>
+              <Drawer.Header>
+                {" "}
+                <h3> Filters </h3>
+              </Drawer.Header>
+              <Drawer.Nav>
+                <div className="mb-2">
+                {tabs.map(tab => (
+        <Accordion key={tab.id} defaultActiveKey={tab.id} flush>
+           <Accordion.Item eventKey="0">
+                      <Accordion.Header>{tab.label}</Accordion.Header>
+                      <Accordion.Body>
+                        <Row>
+                          {tab.Options.map((option)=>{
+                            return(
+                            <Form.Group
+                            className="mb-1"
+                            controlId="formBasicCheckbox"
+                          >
+                            <Form.Check
+                              style={{ width: "100%" }}
+                              type="checkbox"
+                              label={option}
+                            />
+                          </Form.Group>
+                            )
+                          })}
+                        </Row>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    </Accordion>
+          ))}
+          <Button style={{marginTop:"5%",padding:"2% 7% 2% 7%"}} variant="dark">Apply</Button>
+                </div>
+              </Drawer.Nav>
+            </Drawer.ToC>
+          </Drawer.Overflow>
+        </Collapse>
+      </Drawer>
+    );
+  };
+
+  export {FilterMenuMemories,FilterMenuCPUs,FilterMenuHardDrives,FilterMenuSSDs,FilterMenuPoweSupplies,FilterMenuMotherBoards,FilterMenuGraphicCards,FilterMenuNetworks}

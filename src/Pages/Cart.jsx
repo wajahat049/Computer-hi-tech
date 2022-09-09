@@ -35,15 +35,17 @@ function Cart(props) {
 
   // states for profile API
   const [email, setEmail] = React.useState("");
-  const [productImg, setProductImg] = React.useState("");
   const [items, setItems] = React.useState([]);
+  const [totalPrice, setTotalPrice] = React.useState(0);
+  const deliveryCharges = 100
+
 
 
   const publishableKey = "pk_test_51LfJUAEw3O5g6z40A1zVTfiRrfdFI8UQ17qFYNzd2q9UTO8ARzVCFXGSSKGcVXYAeGZQ3CQBIpPLJUzw6wwd1vQS00Q96rUppf";
    
   const onToken = token => {
     const body = {
-      amount: 999,
+      amount: totalPrice+deliveryCharges,
       token: token
   };
   
@@ -64,14 +66,21 @@ function Cart(props) {
     fetch(process.env.REACT_APP_BASE_URL + '/Cart', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: "aleezah@gmail.com" })
+      body: JSON.stringify({ email: userInfo.email })
     })
       .then(response => response.json())
       .then(data => {
-        console.log("get cart data", data)
+        if(data.result[0]){
+
+        console.log("get cart data", data.result[0].items)
         setEmail(data.result[0].email)
         setItems(data.result[0].items)
-        setProductImg(data.result[0].productImg)
+        let total=0;
+        data.result[0].items.map((e)=>{
+            total+=e.totalPrice
+        })
+        setTotalPrice(total)
+        }
       }
       );
   }
@@ -129,7 +138,7 @@ function Cart(props) {
                       <td style={{ paddingLeft: "3%" }}>
                         <Row>
                           <Col md={4}>
-                            <Image width="55em" height="55em" src={productImg} roundedCircle />
+                            <Image width="55em" height="55em" src={e.productImage} roundedCircle />
                           </Col>
                           <Col style={{ paddingTop: "2%", textAlign: "start" }} md={8}>
                             <span style={{ marginLeft: "10%" }}>{e.productName}</span>
@@ -145,13 +154,45 @@ function Cart(props) {
                         </Form.Select>
                       </td>
                       <td style={{ color: "red", paddingTop: "1%" }}><strong >{e.totalPrice}</strong> </td>
-
+                      
                     </tr>
                   )
                 })
+                
                 :
                 null
+                
             }
+             <tr style={{ textAlign: "center" }}>
+                      <td style={{ paddingLeft: "3%" }}>
+                        <Row>
+                          <Col md={4}>
+                          </Col>
+                          <Col style={{ paddingTop: "2%", textAlign: "start" }} md={8}>
+                            <span style={{ marginLeft: "10%" }}></span>
+                          </Col>
+                        </Row>
+                      </td>
+                      <td style={{ color: "red", paddingTop: "1%" }}><strong ></strong> </td>
+                      <td style={{ paddingLeft: "2%", paddingRight: "2%" }}>
+                      </td>
+                      <td style={{ color: "red", paddingTop: "1%"}}>
+                        <Row style={{display:"flex" }}>
+                        <div style={{width:"60%"}}> <strong> Total Price: </strong> </div>
+                        <div style={{width:"10%"}}>${totalPrice}</div>
+                        </Row>
+                        <Row style={{display:"flex",marginTop:"3%" }}>
+                        <div style={{width:"60%"}}> <strong> Delivery: </strong> </div>
+                        <div style={{width:"10%"}}>$100</div>
+                        </Row>
+                        <Row style={{display:"flex",marginTop:"3%" }}>
+                        <div style={{width:"60%"}}> <strong> Overall Price: </strong> </div>
+                        <div style={{width:"10%"}}>${totalPrice+deliveryCharges}</div>
+                        </Row>
+                        
+                       </td>
+
+                    </tr>
           </tbody>
         </Table>
 
@@ -163,7 +204,7 @@ function Cart(props) {
       name="Computer Hi-tech" //Modal Header
       description="Make your Payment"
       panelLabel="PAY" //Submit button in modal
-      amount={999} //Amount in cents $9.99
+      amount={(totalPrice+deliveryCharges)*100} //Amount in cents $9.99
       token={onToken}
       stripeKey={publishableKey}
       image="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRC2ZVSzT9-ExtSSVCnuKFvd6w_dkj-l3cJEIu24uQ73PrniUaP" //Pop-in header image
@@ -171,6 +212,7 @@ function Cart(props) {
       alipay // accept Alipay (default false)
   bitcoin // accept Bitcoins (default false)
   allowRememberMe // "Remember Me" option (default true)
+  email={userInfo.email}
     />
 
     </div>

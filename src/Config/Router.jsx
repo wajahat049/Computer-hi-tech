@@ -19,7 +19,6 @@ import {
 import Categories from "../Pages/Categories";
 import Category from "../Pages/Category";
 import Chat from "../Components/Chat"
-import CheckOut from "../Pages/CheckOut";
 
 
 
@@ -46,7 +45,6 @@ import CheckOut from "../Pages/CheckOut";
                   <Route exact path="/about" component={About}/>
                   <Route exact path="/categories" component={Categories}/>
                   <Route exact path="/category/:id" component={Category}/>
-                  <Route exact path="/checkout" component={CheckOut}/>
 
 
 
