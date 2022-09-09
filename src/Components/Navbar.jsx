@@ -51,7 +51,6 @@ function NavBar() {
               <Nav.Link className="navLinks" href="/categories">All Categories</Nav.Link>
               <Nav.Link className="navLinks" href="/contact">Contact us</Nav.Link>
               <Nav.Link className="navLinks" href="/about">About us</Nav.Link>
-              <Nav.Link className="navLinks" href="/checkout">Checkout</Nav.Link>
 
               
 

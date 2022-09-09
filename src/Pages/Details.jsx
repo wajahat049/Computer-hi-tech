@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import ModalSignup from "../Components/Signup"
 import NavBar from "../Components/Navbar"
 import ControlledCarousel from "../Components/Carousel"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import AllCard from "../Components/AllCards"
 // import Card from "./Card"
@@ -32,31 +32,20 @@ function Details(props) {
   useEffect(() => {
 
     window.scrollTo(0, 0)
+    setItems(props.history.location.state)
   }, [])
-  let history = useHistory()
-  console.log(props.history)
 
 
   var userInfo = props.userInfo;
   console.log("userInfo", userInfo)
+  console.log("params", props.history.location.state)
+
 
   // states for details API
   const [email, setEmail] = React.useState("aleezah@gmail.com");
   const [totalPrice, setTotalPrice] = React.useState(2000);
   const [productImg, setProductImg] = React.useState("https://www.memory4less.com/images/products/img0922/BX80677I57640X-lg.jpg");
   const [items, setItems] = React.useState([
-    {
-      "productPrice" : 500,
-      "productName" : "Intel Core i5",
-      "quantity" : 2,
-      "totalPrice" : 1000
-    },
-    {
-      "productPrice" : 500,
-      "productName" : "Intel Core i5",
-      "quantity" : 2,
-      "totalPrice" : 1000
-    },
   ]);
 
 
@@ -89,16 +78,16 @@ function Details(props) {
               scale: [1, 2, 2, 1, 1],
               rotate: [0, 360, 0],
             }}>
-              <img style={{ justifyContent: "center" }} width="100%" height="100%" src={"https://www.memory4less.com/images/products/img0922/BX80677I57640X-lg.jpg"} />
+              <img style={{ justifyContent: "center" }} width="100%" height="240px" src={items.image} />
             </motion.div>
           </Col>
 
           <Col>
-            <div style={{ float: "left", marginTop: "2%" }}>
+            <div style={{ float: "left", marginTop: "2%",width:"100%"  }}>
 
-              <h4 style={{ textAlign: "start" }}>BX80677I57640X Intel Core i5-7640X X-series Quad Core 4.00GHz 8.00GT/s DMI 6MB L3 Cache Socket LGA2066 Desktop Processor</h4>
+              <h4 style={{ textAlign: "start"}}>{items.title}</h4>
               <hr />
-              <h5 style={{ textAlign: "start", color: "red" }}>Price:  $ 500</h5>
+              <h5 style={{ textAlign: "start", color: "red" }}>Price:  $ {items.price}</h5>
               <Form.Label style={{ float: "left", marginRight: "3%", paddingTop: "1%" }}>Select Quantity</Form.Label>
               <Form.Select style={{ width: "fit-content" }} aria-label="Default select example">
 

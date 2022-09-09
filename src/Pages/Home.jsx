@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import '../App.css';
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import ReactDOM from 'react-dom';
 import {Button,Row} from "react-bootstrap";
 import ModalSignup from "../Components/Signup"
@@ -38,7 +38,62 @@ function Home(props) {
   const [refLatest,inViewLatest] = useInView({threshold:0.7})
   const animationFeatured = useAnimation()
   const animationLatest = useAnimation()
+  const [productsFeature,setProductsFeature] = useState([])
+  const [productsLatest,setProductsLatest] = useState([])
 
+
+  useEffect(()=>{
+    //FEATURE
+    fetch(process.env.REACT_APP_BASE_URL + '/ProductsAcctoCategory', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ category:"GraphicCards"})
+  })
+    .then(response => response.json())
+    .then(grahpiccarddata => {
+      console.log("SEARCH",grahpiccarddata.result)
+
+      fetch(process.env.REACT_APP_BASE_URL + '/ProductsAcctoCategory', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category:"Memories"})
+      })
+        .then(response => response.json())
+        .then(memorydata => {
+          console.log("SEARCH",memorydata.result)
+    
+          
+          setProductsFeature([...grahpiccarddata.result.slice(0,4),...memorydata.result.slice(0,4)])
+      });
+      
+  });
+
+  //LATEST
+  fetch(process.env.REACT_APP_BASE_URL + '/ProductsAcctoCategory', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ category:"HardDrives"})
+  })
+    .then(response => response.json())
+    .then(harddrivedata => {
+      console.log("SEARCH",harddrivedata.result)
+
+      fetch(process.env.REACT_APP_BASE_URL + '/ProductsAcctoCategory', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category:"MotherBoards"})
+      })
+        .then(response => response.json())
+        .then(motherboarddata => {
+          console.log("SEARCH",motherboarddata.result)
+    
+          
+          setProductsLatest([...harddrivedata.result.slice(0,4),...motherboarddata.result.slice(0,4)])
+      });
+      
+  });
+
+},[])
 
   useEffect(()=>{
     if(inViewFeatured){
@@ -105,23 +160,23 @@ function Home(props) {
                 marginTop: "5%",
               }}
             >
-              {imgArr.map((e,i) => {
+              {productsFeature.map((e,i) => {
                 return (
                   <motion.div 
                     initial={{x:"-200vw"}}
                     animate={animationFeatured}
                   >
                     <MainCard 
-                      src={e}
-                      title="AB322-60001 HP 4GB PC133 133MHz "
-                      price="$313.78"
+                      src={e.image}
+                      title={e.title.slice(0,50)}
+                      price={`$${e.price}`}
                     />
                     </motion.div>
                   
                 );
               })}
               <Row style={{justifyContent:"end",marginTop:"4%"}}>
-                     <Button style={{width:"12%"}} variant="dark" onClick={() => {}}>See more<AiOutlineArrowRight style={{marginLeft:"10%"}}/> </Button>
+                     <Button style={{width:"12%"}} variant="dark" onClick={() => {history.push("/Categories")}}>See more<AiOutlineArrowRight style={{marginLeft:"10%"}}/> </Button>
               </Row>
             </Row>
           </div>
@@ -137,23 +192,25 @@ function Home(props) {
               l={5}
               className="g-3"
             >
-              {imgArr.map((e,i) => {
+              {productsLatest.map((e,i) => {
                 return (
                   <motion.div 
                   initial={{x:"-200vw"}}
                   animate={animationLatest}
                 >
                     <MainCard
-                      src={e}
-                      title="AB322-60001 HP 4GB PC133 133MHz "
-                      price="$313.78"
+                      src={e.image}
+                      title={e.title.slice(0,50)}
+                      price={`$${e.price}`}
+                      priceValue={e.price}
+                      fullTitle={e.title}
                     />
                     </motion.div>
                   
                 );
               })}
                <Row style={{justifyContent:"end",marginTop:"4%"}}>                     
-               <Button style={{width:"12%"}} variant="dark" onClick={() => {}}>See more<AiOutlineArrowRight style={{marginLeft:"10%"}}/> </Button>
+               <Button style={{width:"12%"}} variant="dark" onClick={() => {history.push("/Categories")}}>See more<AiOutlineArrowRight style={{marginLeft:"10%"}}/> </Button>
 
               </Row>
             </Row>

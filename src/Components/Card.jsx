@@ -6,16 +6,18 @@ import {Button,Card} from "react-bootstrap";
 import ModalSignup from "./Signup"
 import NavBar from "./Navbar"
 import ControlledCarousel from "./Carousel"
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 
 
 function MainCard(props) {
+  const history = useHistory()
+
   return (
-    <Link to="/details" style={{ textDecoration: 'none' }}>
+    <Link onClick={()=>history.push("/details",{title:props.fullTitle,image:props.src,price:props.priceValue})} style={{ textDecoration: 'none' }}>
     <Card className="Product-Card" >
    <div className="insideCard">
-    <Card.Img  variant="top" src={props.src} />
+    <Card.Img style={{padding:"5%"}}  variant="top" src={props.src} />
     </div>
     <div style={{height:"35%"}}>
     <Card.Body >

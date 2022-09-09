@@ -137,7 +137,9 @@ import { FilterMenuCPUs, FilterMenuGraphicCards, FilterMenuHardDrives, FilterMen
                       <MainCard
                         src={item.image}
                         title={item.title.slice(0,80)}
-                        price={`$${item.price.value}`}
+                        price={`$${item.price}`}
+                        priceValue={item.price}
+                      fullTitle={item.title}
                       />
                     
                   );
