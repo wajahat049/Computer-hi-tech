@@ -94,16 +94,20 @@ body .heading, h1, h2{
   .sort-bar{
     width: 100%;
   }
+  .Categories_Card {
+    height: 255px;
+    width: 225px !important;
+    border: 2px solid rgb(214, 206, 206);
+    border-radius: 10px;
+    margin-left: 20% !important;
+    box-shadow: 1px 2px 3px grey;
+    margin-bottom: 10% !important;
+  }
  
 }
 
-/* .heading{
-    font-size: 50px;
-} */
 
 @media screen and (min-width: 501px) {
-
- 
 
   .heading {
     font-size: 60px;
@@ -368,7 +372,7 @@ body .heading, h1, h2{
   width:225px !important;
   border:2px solid rgb(214, 206, 206);
   border-radius:10px;
-  margin-left: 4%;
+  margin-left: 7%;
   box-shadow:1px 2px 3px grey;
   
 }
