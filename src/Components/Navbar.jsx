@@ -1,21 +1,33 @@
 // import logo from './logo.svg';
-// import './App.css';
+import '../App.css';
 import React from "react";
 import ReactDOM from "react-dom";
-import { Button, Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { Button, Navbar, Nav, Container, NavDropdown,Modal,Row,Col } from "react-bootstrap";
 import ModalSignup from "./Signup";
 import ModalLogin from "./Login";
-import { BiLogIn } from "react-icons/bi";
+import { BiLogIn,BiLogOut } from "react-icons/bi";
 import { HiOutlineUserAdd,HiOutlineShoppingCart } from "react-icons/hi";
 import { Link,useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { changeisuser } from '../Store/action';
 
 import Logo from "../Images/logo2.png";
 
-function NavBar() {
+function NavBar(props) {
   const history  = useHistory()
 
   const [signmodalShow, setsignModalShow] = React.useState(false);
   const [loginmodalShow, setloginModalShow] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(!modalIsOpen);
+}
+
+function closeModal() {
+    setIsOpen(false);
+}
+
 
   return (
     <>
@@ -56,6 +68,8 @@ function NavBar() {
 
 
             </Nav>
+            {props.userInfo.email!="anonymous@gmail.com"?
+<>
             <Button
             style={{ marginRight: "1%" }}
             variant="outline-secondary"
@@ -63,6 +77,17 @@ function NavBar() {
           >
             <HiOutlineShoppingCart size={20} />
           </Button>
+
+          <Button
+          style={{ marginRight: "1%" }}
+          variant="outline-secondary"
+          onClick={() => openModal()}
+          >
+          <BiLogOut size={20} />
+          </Button>
+          </>
+:
+<>
             <Button
             style={{ marginRight: "1%" }}
             variant="outline-secondary"
@@ -80,12 +105,52 @@ function NavBar() {
           >
             <BiLogIn size={20} />
           </Button>
+          </>
+            }
+
           <ModalLogin
             show={loginmodalShow}
             onHide={() => setloginModalShow(false)}
+            
           />
-        
-  
+        <Modal show={modalIsOpen}
+            onHide={() => closeModal()}
+            size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered>
+              
+        <Modal.Header >
+          <Modal.Title id="contained-modal-title-vcenter">
+            LogOut
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+                            <h5>
+                                Are you sure you want to Logout?
+                            </h5>
+                            <Row style={{ textAlign: "center", marginTop: "10%" }}>
+                                <Col>
+                                    <button onClick={() => {
+                                        props.changeisuser({email:"anonymous@gmail.com"})
+                                        window.localStorage.clear()
+                                        history.push("/")
+                                        setTimeout(()=>{
+                                            window.location.reload("/")
+                                        },2000)
+                                    }
+                                    } style={{ borderRadius: "5px" }} className="IconButton"> YES </button>
+                                </Col>
+                                <Col>
+                                    <button onClick={() => closeModal()} style={{ borderRadius: "5px" }} className="IconButton"> NO </button>
+
+                                </Col>
+
+                            </Row>
+                            </Modal.Body>
+        <Modal.Footer>
+          <Button variant="dark" onClick={()=>closeModal()}>Close</Button>
+        </Modal.Footer>
+      </Modal>
           </Navbar.Collapse>
 
           
@@ -95,4 +160,18 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+function mapStateToProps(state) {
+  return {
+    userInfo: state.userInfo
+  }
+}
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+      changeisuser: (userInfo) => dispatch(changeisuser(userInfo))
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
