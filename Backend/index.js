@@ -5,11 +5,12 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const socket = require("socket.io");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const{Login,loadMongoDb,postData, ContactForm, getCartData, addToCart, AddChatMessageFromUser, getChatMessages, LoadDataIntoDatabase, StripePayment, ProductsAcctoCategory,getProducts} = require("./functions.js");
+const{Login,loadMongoDb,postData, ContactForm, getCartData, addToCart, AddChatMessageFromUser, getChatMessages, LoadDataIntoDatabase, StripePayment, ProductsAcctoCategory,getProducts, updateStatus,DetailForm} = require("./functions.js");
 
 loadMongoDb()
 
@@ -75,14 +76,54 @@ app.post("/payment", (req, res) => {
   StripePayment(req, res);
 });
 
+// For DeatilForm
+app.post("/DetailForm", (req, res) => {
+  console.log("Detail Form", req.body);
+  DetailForm(req, res);
+});
+
 
 const PORT = process.env.PORT || 8001;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server started on Port ${PORT}`);
 });
 
 // setTimeout(()=>{
 //   LoadDataIntoDatabase()
 //   },3000)
+var obj={}
 
+const io = socket(server);
+
+
+// make a connection with the user from server side
+io.on('connection', (socket)=>{
+  console.log('New user connected');
+ 
+
+  // disconnect from user
+  // socket.on("disconnect", (e) => {
+  //   console.log("User disconnected",e);
+    
+  // });
+
+  socket.on('disconnect', (status) => {
+    console.log('userDisconnected',Object.values(obj)[0]);
+    setTimeout(()=>{
+      updateStatus({email:Object.values(obj)[0],isActive:false})
+    },2000)
+  
+  });
+
+  socket.on('userActive', (status)=>{
+    console.log('active status', status);
+    obj[socket.id] = status.email
+    setTimeout(()=>{
+      updateStatus(status)
+    },2000)
+  });
+
+  
+
+});

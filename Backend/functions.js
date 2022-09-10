@@ -127,7 +127,7 @@ const getCartData = async (req, res) => {
     console.log("cart data get", req.body.email)
     let collection = mongoResult.db("ComputerHiTech").collection("Cart");
     collection.find({ email: req.body.email }).toArray().then((result, err) => {
-        console.log(result)
+        // console.log(result)
         res.status(200).send({ result: result })
         return
     })
@@ -136,10 +136,10 @@ const getCartData = async (req, res) => {
 
 //get cart data
 const ProductsAcctoCategory = async (req, res) => {
-    console.log("ProductsAcctoCategory", typeof(req.body.category))
+    // console.log("ProductsAcctoCategory", typeof(req.body.category))
     let collection = mongoResult.db("ComputerHiTech").collection("Data");
     collection.find({category :  req.body.category}).toArray().then((result, err) => {
-        console.log(result)
+        // console.log(result)
         res.status(200).send({ result: result })
         return
     })
@@ -149,7 +149,7 @@ const ProductsAcctoCategory = async (req, res) => {
 
 //add to cart 
 const addToCart = async (req, res) => {
-    console.log("AddToCart data ", req.body.email, req.body.items, req.body.productImg, req.body.totalPrice)
+    // console.log("AddToCart data ", req.body.email, req.body.items, req.body.productImg, req.body.totalPrice)
     let collection = mongoResult.db("ComputerHiTech").collection("Cart");
     var newvalues = {
         $set: {
@@ -167,11 +167,11 @@ const addToCart = async (req, res) => {
 const AddChatMessageFromUser = async (req, res) => {
     let collection = mongoResult.db("ComputerHiTech").collection("Chat");
     // collection.find({ email: req.body.email }).toArray().then((result, err) => {
-        console.log("MSGS",req.body.messages)
+        // console.log("MSGS",req.body.messages)
     // })
     collection.findOne({email: req.body.email}).then(
         entry => {
-            console.log("Entry",entry)
+            // console.log("Entry",entry)
             if (!entry) {
                 collection.insertOne(
                     {
@@ -199,10 +199,10 @@ const AddChatMessageFromUser = async (req, res) => {
 
 // Get All Messages w.r.t User
 const getChatMessages = async(req, res) => {
-    console.log("getChatMessages", req.body)
+    // console.log("getChatMessages", req.body)
     let collection = mongoResult.db("ComputerHiTech").collection("Chat");
         collection.find({ email: req.body.email }).toArray().then((result, err) => {
-            console.log(result,err)
+            // console.log(result,err)
             res.status(200).send({ result: result })
             return
         })
@@ -216,7 +216,7 @@ const StripePayment = async(req, res) => {
         amount: req.body.amount,
         currency: "usd"
       };
-      console.log("STRIPE BODY",body)
+    //   console.log("STRIPE BODY",body)
       stripe.charges.create(body, (stripeErr, stripeRes) => {
         if (stripeErr) {
           res.status(500).send({ error: stripeErr });
@@ -227,6 +227,45 @@ const StripePayment = async(req, res) => {
 }
 
 
+//update user activve status
+const updateStatus = async (status) => {
+    let collection = mongoResult.db("ComputerHiTech").collection("Chat");
+    // collection.find({ email: req.body.email }).toArray().then((result, err) => {
+        // console.log("MSGS",req.body.messages)
+    // })
+    var name = status.email.split("@")
+    collection.findOne({email: status.email}).then(
+        entry => {
+            // console.log("Entry",entry)
+            if (!entry) {
+                collection.insertOne(
+                    {
+                        email:status.email,
+                        isActive: status.isActive,
+                        name:name[0]
+                    }
+                )
+            }
+            else{
+        collection.updateOne({ email: status.email },{ $set: {isActive:status.isActive} },(result, err) => {
+            return
+        })
+    }
+    })
+}
+
+// Detail Form
+const DetailForm = async (req, res) => {
+    let collection = mongoResult.db("ComputerHiTech").collection("QuoteForm");
+    collection.insertOne({ email: req.body.email, quantity: req.body.quantity, need: req.body.need }, function (error, response) {
+        if (error) throw error;
+        console.log("Successfully Submitted Detail form")
+        res.status(200).send({ message: "Successfully Submitted" })
+        return;
+    });
+
+}
 
 
-module.exports = { Login, postData, loadMongoDb, ContactForm, getCartData, addToCart,AddChatMessageFromUser,getChatMessages,LoadDataIntoDatabase,StripePayment,ProductsAcctoCategory,getProducts }
+
+module.exports = { Login, postData, loadMongoDb, ContactForm, getCartData, addToCart,AddChatMessageFromUser,getChatMessages,LoadDataIntoDatabase,StripePayment,ProductsAcctoCategory,getProducts,updateStatus,DetailForm }

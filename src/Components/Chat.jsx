@@ -1,16 +1,28 @@
 import React,{useEffect, useState} from 'react';
 import { Widget, addResponseMessage } from 'react-chat-widget';
 import "../App.css"
+import socketIOClient from "socket.io-client";
+import { connect } from "react-redux";
 
 import 'react-chat-widget/lib/styles.css';
 
-function Chat() {
+function Chat(props) {
+  const mysocket = socketIOClient("http://localhost:8001", { transports : ['websocket'] });
   const [messages,setMessages] = useState([])
   const [lastmsg,setLastmsg] = useState("")
 
 
 
   useEffect(() => {
+    // make connection with server from user side
+    mysocket.on('connect', function(){
+      console.log('Connected to Server')
+      mysocket.emit('userActive', {
+        email:props.userInfo.email,
+        isActive:true
+      });
+     
+    });
     // var num = 2;
     // var lst= []
     // var LST=[]
@@ -23,6 +35,36 @@ function Chat() {
     // }
     
     getMessages()
+
+    // for disconnection
+  //   return () => {
+  //   mysocket.disconnect()
+      
+  //   // mysocket.emit("userDisconnected",{
+  //   //   email:props.userInfo.email,
+  //   //     isActive:false
+  //   // })
+    
+  // }
+
+  // const closed=(event)=>{
+  //   event.preventDefault();
+  //   console.log('beforeunload event triggered');
+  //   mysocket.emit("userDisconnected",{
+  //     email:props.userInfo.email,
+  //       isActive:false
+  //   })
+  // }
+
+  
+return () =>
+{
+    mysocket.emit("disconnect",{
+      email:props.userInfo.email,
+        isActive:false
+    })
+mysocket.close();
+}
   }, []);
 
   const AddMessageFromUser=(Message)=>{
@@ -77,4 +119,12 @@ function Chat() {
   );
 }
 
-export default Chat;
+
+function mapStateToProps(state) {
+  return {
+    userInfo: state.userInfo
+  }
+}
+
+
+export default connect(mapStateToProps, null)(Chat);
