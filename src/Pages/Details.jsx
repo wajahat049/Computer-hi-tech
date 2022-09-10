@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import '../App.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import ModalSignup from "../Components/Signup"
 import NavBar from "../Components/Navbar"
@@ -18,6 +18,12 @@ import ProductCarousel from "../Components/ProductCarousel"
 import { useInView, } from "react-intersection-observer"
 import { connect } from "react-redux";
 
+// snackbar
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 
@@ -48,6 +54,28 @@ function Details(props) {
   const [items, setItems] = React.useState([
   ]);
 
+  const [filled, setFilled] = useState(false)
+
+  // For Error Message
+  const [msg, setMsg] = useState("");
+  const [variant, setvariant] = useState("");
+
+  // For SnackBar
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const save = (data) => {
+    setMsg(data.message)
+    setvariant(data.variant)
+    setOpen(true)
+  }
 
 
   // add to cart
@@ -68,8 +96,39 @@ function Details(props) {
       );
   }
 
+  // Detail API
+  const SubmitDetailForm = (event) => {
+    var quantity = document.getElementById("quantity").value
+    var email = document.getElementById("email").value
+    var need = document.getElementById("need").value
+    console.log("quantity, email, need", quantity, email, need)
+    if (quantity != "" && email != "" && need != "") {
+      console.log("quantity, email, need", quantity, email, need)
+      fetch(process.env.REACT_APP_BASE_URL + '/DetailForm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quantity, email, need })
+      })
+        .then(response => response.json())
+        .then(data => save(data)
+        ).then(
+          setFilled(true)
+
+        ).then(document.getElementById("quantity").value = "",
+          document.getElementById("email").value = "",
+          document.getElementById("need").value = ""
+        )
+
+    }
+  }
+
   return (
     <>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={variant} sx={{ width: '100%' }}>
+          {msg}
+        </Alert>
+      </Snackbar>
       <Container fluid style={{ marginLeft: "2%", marginTop: "5%" }} >
         <Row style={{ justifyContent: "center" }}>
 
@@ -83,9 +142,9 @@ function Details(props) {
           </Col>
 
           <Col>
-            <div style={{ float: "left", marginTop: "2%",width:"100%"  }}>
+            <div style={{ float: "left", marginTop: "2%", width: "100%" }}>
 
-              <h4 style={{ textAlign: "start"}}>{items.title}</h4>
+              <h4 style={{ textAlign: "start" }}>{items.title}</h4>
               <hr />
               <h5 style={{ textAlign: "start", color: "red" }}>Price:  $ {items.price}</h5>
               <Form.Label style={{ float: "left", marginRight: "3%", paddingTop: "1%" }}>Select Quantity</Form.Label>
@@ -145,15 +204,15 @@ function Details(props) {
             <Form  >
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control id='email' type="email" placeholder="Enter email" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicQuantity">
                 <Form.Label>Quantity</Form.Label>
-                <Form.Control type="number" placeholder="Enter quantity" />
+                <Form.Control id='quantity' type="number" placeholder="Enter quantity" />
               </Form.Group>
               <Form.Group className="mb-3" controlId="exampleForm.Message">
                 <Form.Label>How Soon You Need It?</Form.Label>
-                <Form.Select aria-label="Default select example">
+                <Form.Select id='need' aria-label="Default select example">
                   <option value="Today">Today</option>
                   <option value="This Week">This Week</option>
                   <option value="This Month">This Month</option>
@@ -163,7 +222,7 @@ function Details(props) {
 
 
 
-              <Button variant="dark" type="submit">
+              <Button onClick={(e) => SubmitDetailForm(e)} variant="dark" >
                 Submit
               </Button>
             </Form>
