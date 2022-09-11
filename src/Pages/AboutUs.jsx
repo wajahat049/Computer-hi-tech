@@ -25,8 +25,8 @@ import whatSell_Icon from "../Images/whatSell_Icon.jpg";
 import why_us_icon from "../Images/why_us_icon.png";
 import manage_icon from "../Images/manageIcon.jpg";
 import provideIcon from "../Images/provideIcon.png";
-
-
+import ScrollAnimation from "react-animate-on-scroll";
+import "./animate.css"
 
 
 
@@ -36,7 +36,10 @@ import provideIcon from "../Images/provideIcon.png";
 
 function About(props) {
   const [refFeatured, inViewFeatured] = useInView({ threshold: 0.7 })
+  const [refImage, inViewImage] = useInView({ threshold: 0.7 })
+
   const animationFeatured = useAnimation()
+  const animationImage = useAnimation()
   const [coverSize, setcoverSize] = useState(500)
 
 
@@ -45,11 +48,31 @@ function About(props) {
     if (window.innerWidth < 400) {
       setcoverSize(300)
     }
+
+
     if (inViewFeatured) {
       animationFeatured.start({
         x: 0,
         transition: {
           type: "spring", duration: 1, bounce: 0.5
+        }
+      })
+    }
+
+
+
+  }, [refFeatured])
+
+  useEffect(()=>{
+    if (inViewImage) {
+      animationImage.start({
+        x:0,
+        y: 0,
+        rotate: 0,
+        transition: {
+          type: "spring",
+          bounce: 0.4,
+          duration: 0.8
         }
 
 
@@ -57,7 +80,8 @@ function About(props) {
     }
 
 
-  }, [refFeatured])
+  
+  },[refImage])
 
   return (
     <div
@@ -73,8 +97,14 @@ function About(props) {
       <Row className='contact-subheading'> <h4 style={{ color: 'gray' }}> Our History and Philosophy </h4> </Row>
 
 
-      <Row style={{ marginTop: "5%", width: "97%", justifyContent: "space-between" }}>
+      <Row ref={refImage}  style={{ margin: "1%", width: "97%", justifyContent: "space-between" }}>
+     
         <Col className='Contact-Content' md={4} sm={12} >
+        <ScrollAnimation
+            animateIn="zoomInLeft"
+            duration={1}
+            delay={1.5}
+          >
           <p> <span style={{ fontSize: "35px", color: 'gray' }}>L</span> orem ipsum dolor sit amet consectetur adipisicing elit. Minima possimus quae nihil voluptate voluptatibus hic impedit neque facere saepe ducimus distinctio harum, autem, quisquam atque reprehenderit omnis id voluptatem ab?
           </p>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima possimus quae nihil voluptate voluptatibus hic impedit neque facere saepe ducimus distinctio harum, autem, quisquam atque reprehenderit omnis id voluptatem ab?
@@ -83,20 +113,36 @@ function About(props) {
           </p>
           <p> Minima possimus quae nihil voluptate voluptatibus hic impedit neque facere saepe ducimus distinctio harum, autem
           </p>
-        </Col>
+        </ScrollAnimation>
+        </Col> 
+       
         <Col className='Contact-Form' md={7} sm={12}>
+                   <ScrollAnimation
+            animateIn="slideInRight"
+            duration={1}
+            delay={1.5}
+          >
           <img width="100%" src={aboutSideImg} alt="" />
+          </ScrollAnimation>
+        {/* </motion.div> */}
+         
         </Col>
+        {/* </ScrollAnimation> */}
       </Row>
 
       <div className='About-cards'>
 
         <Row ref={refFeatured} lg={3} sm={2} md={3} >
-          <motion.div
-          // initial={{ x: "-200vw" }}
-          // animate={animationFeatured}
-          >
+          {/* <motion.div */}
+          {/* // initial={{ x: "-200vw" }}
+          // animate={animationFeatured} */}
+          {/* > */}
             <Col>
+            <ScrollAnimation
+            animateIn="flipInX"
+            duration={1}
+            delay={1.5}
+          >
               <Card>
                 <Card.Header className='cardHeader' as="h5">Who we are? 
                 <img width="100px" height="100px" src={who_icon} alt="" />
@@ -109,9 +155,15 @@ function About(props) {
                   </Card.Text>
                 </Card.Body>
               </Card>
+              </ScrollAnimation>
             </Col>
-          </motion.div>
+          {/* </motion.div> */}
           <Col>
+          <ScrollAnimation
+            animateIn="flipInY"
+            duration={1}
+            delay={1.5}
+          >
             <Card>
               <Card.Header className='cardHeader' as="h5">What we do?
               <img width="100px" height="100px" src={whatIcon} alt="" />
@@ -124,9 +176,15 @@ function About(props) {
                 </Card.Text>
               </Card.Body>
             </Card>
+            </ScrollAnimation>
           </Col>
 
           <Col >
+          <ScrollAnimation
+            animateIn="flipInX"
+            duration={1}
+            delay={1.5}
+          >
             <Card>
               <Card.Header className='cardHeader' as="h5">What we sell?
               <img width="85px" height="85px" src={whatSell_Icon} alt="" />
@@ -139,9 +197,15 @@ function About(props) {
                 </Card.Text>
               </Card.Body>
             </Card>
+            </ScrollAnimation>
           </Col>
 
           <Col>
+          <ScrollAnimation
+            animateIn="flipInX"
+            duration={1}
+            delay={1.5}
+          >
             <Card>
               <Card.Header className='cardHeader' as="h5">Why us?
               <br />
@@ -155,9 +219,15 @@ function About(props) {
                 </Card.Text>
               </Card.Body>
             </Card>
+            </ScrollAnimation>
           </Col>
 
           <Col>
+          <ScrollAnimation
+            animateIn="flipInY"
+            duration={1}
+            delay={1.5}
+          >
             <Card>
               <Card.Header className='cardHeader' as="h5">How we manage? 
               <img width="75px" height="75px" src={manage_icon} alt="" />
@@ -170,10 +240,16 @@ function About(props) {
                 </Card.Text>
               </Card.Body>
             </Card>
+            </ScrollAnimation>
           </Col>
 
 
           <Col>
+          <ScrollAnimation
+            animateIn="flipInX"
+            duration={1}
+            delay={1.5}
+          >
             <Card>
               <Card.Header className='cardHeader' as="h5">What we provide?
               <img width="100px" height="100px" src={provideIcon} alt="" />
@@ -186,6 +262,7 @@ function About(props) {
                 </Card.Text>
               </Card.Body>
             </Card>
+            </ScrollAnimation>
           </Col>
 
         </Row>

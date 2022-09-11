@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import 'react-chat-widget/lib/styles.css';
 
 function Chat(props) {
-  const mysocket = socketIOClient("http://localhost:8001", { transports : ['websocket'] });
+  const mysocket = socketIOClient("https://computer-hi-tech.herokuapp.com", { transports : ['websocket'] });
   const [messages,setMessages] = useState([])
   const [lastmsg,setLastmsg] = useState("")
 
@@ -68,16 +68,17 @@ mysocket.close();
   }, []);
 
   const AddMessageFromUser=(Message)=>{
-    fetch(process.env.REACT_APP_BASE_URL + '/AddChatMessageFromUser', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: "aleezah@gmail.com",message:Message,messages:messages })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("chat data", data)
-      }
-      );
+    console.log("MYMSG",Message,messages)
+    // fetch(process.env.REACT_APP_BASE_URL + '/AddChatMessageFromUser', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ email: "aleezah@gmail.com",message:Message,messages:messages })
+    // })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log("chat data", data)
+    //   }
+    //   );
   }
 
   const getMessages=()=>{
@@ -88,6 +89,7 @@ mysocket.close();
     })
       .then(response => response.json())
       .then(data => {
+        setMessages(data.result[0].messages)
         var mymsg = data.result[0].messages
         console.log("messages data", data.result[0].messages)
         setLastmsg(mymsg[mymsg.length-1].admin)

@@ -10,7 +10,6 @@ import { HiOutlineUserAdd,HiOutlineShoppingCart } from "react-icons/hi";
 import { Link,useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { changeisuser } from '../Store/action';
-
 import Logo from "../Images/logo2.png";
 
 function NavBar(props) {
@@ -39,10 +38,12 @@ function closeModal() {
         variant="dark"
       >
         <Container fluid>
+          
           <Navbar.Brand
             href="/"
             style={{ width: "13%"}}
           >
+            
             <img
               src={Logo}
               style={{height:"2.5em",width:"7em"}}

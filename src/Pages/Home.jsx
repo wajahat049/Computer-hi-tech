@@ -21,6 +21,8 @@ import "react-multi-carousel/lib/styles.css";
 import ProductCarousel from '../Components/ProductCarousel';
 // import Chat from '../Components/Chat';
 
+import ScrollAnimation from "react-animate-on-scroll";
+import "./animate.css"
 
 
 
@@ -134,14 +136,20 @@ function Home(props) {
         // />
       // </> */}
     {/* <SearchBar/> */}
-    <Row >
-      <img 
+    <Row  >
+      <img  className='HomeImg'
       src={"https://media2.giphy.com/media/3oKIPmHmREIV18Xtbq/giphy.gif"} 
       // src={" https://media2.giphy.com/media/j0qclsfQMGBhaVvYGT/200.gif"}
       height="500px"/>
       <div className='HomeBanner'>
         <h3 style={{color:"white"}}>All Computer Parts Available at Reasonable Price</h3>
+        <ScrollAnimation
+            animateIn="flipInX"
+            duration={2}
+            delay={1}
+          >
       <Button onClick={()=>history.push("/categories")} style={{fontSize:"20px"}} variant="outline-secondary">Buy Our Products</Button>{' '}
+    </ScrollAnimation>
       </div>
     </Row>
     <ControlledCarousel/>

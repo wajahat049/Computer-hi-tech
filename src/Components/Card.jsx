@@ -14,7 +14,7 @@ function MainCard(props) {
   const history = useHistory()
 
   return (
-    <Link onClick={()=>history.push("/details",{title:props.fullTitle,image:props.src,price:props.priceValue})} style={{ textDecoration: 'none' }}>
+    <a  onClick={()=>history.push("/details",{title:props.fullTitle,image:props.src,price:props.priceValue})} style={{ textDecoration: 'none',cursor:"pointer" }}>
     <Card className="Product-Card" >
    <div className="insideCard">
     <Card.Img style={{padding:"5%"}}  variant="top" src={props.src} />
@@ -32,7 +32,7 @@ function MainCard(props) {
     <div className='lineCard' >
       </div>
   </Card>
-  </Link>
+  </a>
   );
 }
 

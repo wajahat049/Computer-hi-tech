@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 import '../App.css';
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import ReactDOM from 'react-dom';
 import {Button,Row,Table,Image,Form,Col} from "react-bootstrap";
 import {
@@ -15,6 +15,12 @@ import CartLogo2 from "../Images/computer.png"
 import StripeCheckout from "react-stripe-checkout";
 import CreditCard from "../Images/Credit card-bro.png"
 
+// snackbar
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 
@@ -28,6 +34,28 @@ function Cart(props) {
     "https://www.memory4less.com/Images/products/img0922a/AA23080-sm.jpg",
     "https://www.memory4less.com/Images/products/img0922a/674841-B21-sm.jpg",
     "https://www.memory4less.com/Images/products/img0922a/975-200005-sm.jpg"]
+
+
+  // For Error Message
+  const [msg, setMsg] = useState("");
+  const [variant, setvariant] = useState("");
+
+  // For SnackBar
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const save = (data) => {
+    setMsg(data.message)
+    setvariant(data.variant)
+    setOpen(true)
+  }
 
 
   var userInfo = props.userInfo;
@@ -45,7 +73,7 @@ function Cart(props) {
    
   const onToken = token => {
     const body = {
-      amount: totalPrice+deliveryCharges,
+      amount: parseInt(totalPrice+deliveryCharges),
       token: token
   };
   
@@ -56,6 +84,7 @@ function Cart(props) {
     })
       .then(response => response.json())
       .then(data => {
+        save(data)
         console.log("stripe data", data)
       }
       );
@@ -104,6 +133,12 @@ function Cart(props) {
   })
   
   return (
+    <>
+    <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+    <Alert onClose={handleClose} severity={variant} sx={{ width: '100%' }}>
+      {msg}
+    </Alert>
+  </Snackbar>
     <div ref={ref} style={{textAlign:"-webkit-center",marginTop:"5%"}}>
       <img height={"100px"} width={"100px"} 
       src={CartLogo1
@@ -135,25 +170,27 @@ function Cart(props) {
 
 
                     <tr style={{ textAlign: "center" }}>
-                      <td style={{ paddingLeft: "3%" }}>
-                        <Row>
-                          <Col md={4}>
+                      <td style={{ paddingLeft: "1%" }}>
+                        <Row >
+                          <Col md={3}>
                             <Image width="55em" height="55em" src={e.productImage} roundedCircle />
                           </Col>
-                          <Col style={{ paddingTop: "2%", textAlign: "start" }} md={8}>
+                          <Col style={{ paddingTop: "2%", textAlign: "start" }} md={6}>
                             <span style={{ marginLeft: "10%" }}>{e.productName}</span>
                           </Col>
                         </Row>
                       </td>
                       <td style={{ color: "red", paddingTop: "1%" }}><strong >{e.productPrice}</strong> </td>
                       <td style={{ paddingLeft: "2%", paddingRight: "2%" }}>
-                        <Form.Select defaultValue={e.quantity} aria-label="Select">
+                        {/* {console.log("QUAN",e.quantity)}
+                        <Form.Select  value={e.quantity} aria-label="Select">
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
-                        </Form.Select>
+                        </Form.Select> */}
+                       <strong> {e.quantity} </strong>
                       </td>
-                      <td style={{ color: "red", paddingTop: "1%" }}><strong >{e.totalPrice}</strong> </td>
+                      <td style={{ color: "red", paddingTop: "1%",width:"25%" }}><strong >{e.totalPrice}</strong> </td>
                       
                     </tr>
                   )
@@ -216,6 +253,7 @@ function Cart(props) {
     />
 
     </div>
+    </>
   );
 }
 

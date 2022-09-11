@@ -151,17 +151,33 @@ const ProductsAcctoCategory = async (req, res) => {
 const addToCart = async (req, res) => {
     // console.log("AddToCart data ", req.body.email, req.body.items, req.body.productImg, req.body.totalPrice)
     let collection = mongoResult.db("ComputerHiTech").collection("Cart");
+    collection.findOne({email: req.body.email}).then(
+        entry => {
+            console.log("EntryCART",entry)
+            if (!entry) {
+                collection.insertOne(
+                    {
+                        email: req.body.email,
+                        items: req.body.items
+                    }
+                ).then((result) => {
+                    res.status(200).send({ message: "Successfully added to Cart",variant:"success" })
+                    console.log("Successfully add to Cart")
+                })
+            }
+            else{
     var newvalues = {
         $set: {
-            items: req.body.items, productImg: req.body.productImg, totalPrice: req.body.totalPrice
+            items:[...entry.items,...req.body.items]
         }
     };
     collection.updateOne({ email: req.body.email }, newvalues, (result, err) => {
-        res.status(200).send({ message: "Successfully add to Cart" })
+        res.status(200).send({ message: "Successfully added to Cart",variant:"success" })
         return
     })
 }
-
+}
+    )}
 
 // Add Chat message from user in database
 const AddChatMessageFromUser = async (req, res) => {
@@ -219,9 +235,9 @@ const StripePayment = async(req, res) => {
     //   console.log("STRIPE BODY",body)
       stripe.charges.create(body, (stripeErr, stripeRes) => {
         if (stripeErr) {
-          res.status(500).send({ error: stripeErr });
+          res.status(500).send({ message: "Transaction Failed",variant:"error" });
         } else {
-          res.status(200).send({ success: stripeRes });
+          res.status(200).send({ message:"Transaction successfull",variant:'success' });
         }
       });
 }

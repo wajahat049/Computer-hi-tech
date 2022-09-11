@@ -23,6 +23,8 @@ import ssd from "../Images/ssd.jfif"
 import powersupply from "../Images/powersupply.jfif"
 import cpu from "../Images/cpu.jfif"
 
+import ScrollAnimation from "react-animate-on-scroll";
+import "./animate.css"
 
 
 
@@ -72,6 +74,11 @@ function Categories(props) {
       <div style={{ width: "100%", height: "40px", textAlign: "center", marginTop: "2%", marginBottom: "10%" }}>
         <span className="heading"> Categories </span>
       </div>
+      <ScrollAnimation
+            animateIn="lightSpeedIn"
+            duration={1}
+            delay={1.5}
+          >
       <Row style={{ marginTop: "5%", }}>
         <Col onClick={() => history.push("/category/Memories")} className="Categories_Card" sm={3}>
           <h2 style={{ textAlign: "center", marginTop: "2%" }}>Memory</h2>
@@ -98,7 +105,12 @@ function Categories(props) {
           </div>
         </Col>
       </Row>
-
+      </ScrollAnimation>
+      <ScrollAnimation
+            animateIn="rollIn"
+            duration={1}
+            delay={1.5}
+          >
       <Row style={{ marginTop: "5%",  }}>
         <Col onClick={() => history.push("/category/MotherBoards")} className="Categories_Card" sm={3}>
           <h2 style={{ textAlign: "center", marginTop: "2%" }}>MotherBoard</h2>
@@ -125,6 +137,7 @@ function Categories(props) {
           </div>
         </Col>
       </Row>
+      </ScrollAnimation>
     </Container>
 
   );

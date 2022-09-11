@@ -9,6 +9,8 @@ import "react-multi-carousel/lib/styles.css";
 import ProductCarousel from '../Components/ProductCarousel';
 import background from "../Images/contact_bg2.png";
 
+import ScrollAnimation from "react-animate-on-scroll";
+import "./animate.css"
 import contactcover from "../Images/contactcover.jpg";
 import UseAnimations from "react-useanimations";
 import facebook from 'react-useanimations/lib/facebook'
@@ -127,13 +129,23 @@ function Contact(props) {
       }}>
 
         <Row className='contact-heading heading'>GET IN TOUCH</Row>
+        <ScrollAnimation
+            animateIn="flipInY"
+            duration={1.5}
+            delay={1.5}
+          >
         <Row className='contact-subheading'> <p> Phone No. : <span style={{ color: 'gray' }}>03234567839</span> </p></Row>
         <Row className='contact-subheading'> <p> Email : <span style={{ color: 'gray' }}> ComputerHiTech@gmail.com </span> </p> </Row>
         <Row className='contact-subheading'> <p> Address : <span style={{ color: 'gray' }}> Saddar Naz Plaza A/121 </span> </p> </Row>
+        </ScrollAnimation>
 
-
-        <Row style={{ marginTop: "5%", width: "97%", justifyContent: "space-between" }}>
+        <Row style={{ margin: "1%", width: "97%", justifyContent: "space-between" }}>
           <Col className='Contact-Content' md={7} sm={12} >
+          <ScrollAnimation
+            animateIn="zoomInLeft"
+            duration={1}
+            delay={1.5}
+          >
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima possimus quae nihil voluptate voluptatibus hic impedit neque facere saepe ducimus distinctio harum, autem, quisquam atque reprehenderit omnis id voluptatem ab?
             </p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima possimus quae nihil voluptate voluptatibus hic impedit neque facere saepe ducimus distinctio harum, autem, quisquam atque reprehenderit omnis id voluptatem ab?
@@ -142,8 +154,10 @@ function Contact(props) {
             </p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima possimus quae nihil voluptate voluptatibus hic impedit neque facere saepe ducimus distinctio harum, autem, quisquam atque reprehenderit omnis id voluptatem ab?
             </p>
+            </ScrollAnimation>
             <Row className='Contact-Socialmedia'>
               <h2 style={{ marginBottom: "5%" }}>Social Media</h2>
+              
               <Col>
                 <UseAnimations strokeColor='white' speed={2} animation={facebook} size={56} />
               </Col>
@@ -160,7 +174,12 @@ function Contact(props) {
             </Row>
 
           </Col>
-          <Col className='Contact-Form' md={4} sm={12}>
+          <Col className='Contact-Form' style={{marginBottom:"50%"}} md={4} sm={12}>
+          <ScrollAnimation
+            animateIn="slideInRight"
+            duration={1}
+            delay={1.5}
+          >
             <Form style={{ color: "white" }}>
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Full Name</Form.Label>
@@ -182,6 +201,7 @@ function Contact(props) {
                   : "Submit"
               }
             </Button>
+            </ScrollAnimation>
           </Col>
         </Row>
 

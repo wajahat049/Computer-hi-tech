@@ -194,9 +194,22 @@ body .heading, h1, h2{
 }
 
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
+  .carousel-item >img{
+    width: 160% !important;
 
+  }
+  .carousel-item {
+   font-size: 8px !important;
 
+  }
+
+  .HomeImg{
+    height: 300px !important;
+  }
+  .HomeBanner{
+    top: 25% !important;
+  }
   .search input{
     height: 50px !important;
   }
@@ -227,7 +240,7 @@ body .heading, h1, h2{
   }
   
   .card-title{
-    font-size:medium !important;
+    font-size:x-small !important;
     color:black;
     text-align: start;
   }
@@ -266,7 +279,13 @@ body .heading, h1, h2{
 }
 
 .About-cards .card{
-  width: 11.5em !important;
+  width: 15em !important;
+  height: 24em !important;
+
+}
+.About-cards{
+  margin-left: 4% !important;
+  margin-bottom: 45% !important;
 }
 
 }
@@ -344,7 +363,7 @@ body .heading, h1, h2{
 }
 
 .About-cards .card{
-  height: 20em !important;
+  height: 20em ;
   margin:5%;
   width: 15em;
 }
@@ -384,7 +403,7 @@ body .heading, h1, h2{
   width:225px !important;
   border:2px solid rgb(214, 206, 206);
   border-radius:10px;
-  margin-left: 4%;
+  margin-left: 1%;
   box-shadow:1px 2px 3px grey;
   
 }

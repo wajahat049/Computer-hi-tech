@@ -52,7 +52,7 @@ function Details(props) {
 
 
   // states for details API 
-  const [quantity, setQuantity] = React.useState("");
+  const [quantity, setQuantity] = React.useState(1);
   const [allTotalPrice, setTotalPrice] = React.useState("");
   const [items, setItems] = React.useState([]);
 
@@ -83,29 +83,27 @@ function Details(props) {
   // add to cart
   function AddToCart() {
     console.log("ADD TO CART", userInfo.email, allTotalPrice, items.price, items.image, items.title, quantity, quantity * (items.price) )
-    // fetch(process.env.REACT_APP_BASE_URL + '/AddToCart', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ email: userInfo.email, totalPrice : allTotalPrice, 
-    //     items: [
-    //       {
-    //         productPrice : items.price,
-    //         productImage : items.image,
-    //         productName : items.title,
-    //         quantity ,
-    //         totalPrice : quantity * (items.price) 
-    //       }
-    //     ]
-    //     })
-    // })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log("add to cart data", data)
-    //     // setEmail(data.result[0].email)
-    //     // setItems(data.result[0].items)
-    //     // setProductImg(data.result[0].productImg)
-    //   }
-    //   );
+    fetch(process.env.REACT_APP_BASE_URL + '/AddToCart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: userInfo.email, totalPrice : allTotalPrice, 
+        items: [
+          {
+            productPrice : items.price,
+            productImage : items.image,
+            productName : items.title,
+            quantity:quantity ,
+            totalPrice:quantity * (items.price)
+          }
+        ]
+        })
+    })
+      .then(response => response.json())
+      .then(data => {
+        save(data)
+        console.log("add to cart data", data)
+      }
+      );
   }
 
   // Detail API
@@ -162,11 +160,11 @@ function Details(props) {
               <Form.Label style={{ float: "left", marginRight: "3%", paddingTop: "1%" }}>Select Quantity</Form.Label>
               <Form.Select onChange={(e)=> setQuantity(e.target.value)} style={{ width: "fit-content" }} aria-label="Default select example">
 
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
               </Form.Select>
 
             </div>
