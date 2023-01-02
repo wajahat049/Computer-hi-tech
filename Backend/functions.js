@@ -103,6 +103,15 @@ const postData = async (req, res) => {
 
 // All Data
 async function getProducts() {
+     const uri =
+        "mongodb+srv://wajahat:wajju123%40@cluster0.fhtdu.mongodb.net/?retryWrites=true&w=majority";
+    const client = new MongoClient(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverApi: ServerApiVersion.v1,
+    });
+    mongoResult = await client.connect();
+    // console.log("mongoResult", mongoResult)
     let collection = mongoResult.db("ComputerHiTech").collection("Data");
     let response = await collection.find({}).toArray();
     return response;
