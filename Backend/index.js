@@ -14,6 +14,10 @@ const{Login,loadMongoDb,postData, ContactForm, getCartData, addToCart, AddChatMe
 
 loadMongoDb()
 
+app.get("/", (req, res) => {
+    res.send("<h1>Computer Hi-Tech</h1>");
+});
+
 // For Signup
 app.post("/CreateUser", (req, res) => {
   console.log("New User", req.body);
